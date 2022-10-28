@@ -1,0 +1,168 @@
+<div class="p-24" fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="25px">
+    <!-- left side-->
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="25px">
+    <div fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-md="column" fxLayoutGap="25px">
+    <div class="left-side-form" fxFlex="69" fxFlex.lt-md="100">
+        <!-- first left card -->
+        <div class="card first-left-card" fxLayout="column">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.spouse'|translate}}</div>
+
+            <div fxLayout="row">
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.familySituation'| translate}}</h5>
+                    {{ user.martialStatus ? user.martialStatus :'employeeProfessionalInfomations.notMentionned'|
+                    translate
+                    }}
+                </div>
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.status'| translate}}</h5>
+                    {{ user.spouseStatus ? user.spouseStatus: 'employeeProfessionalInfomations.notMentionned'| translate
+                    }}
+                </div>
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.weddingDate'| translate}}</h5>
+                    {{ user.weddingDate ? user.weddingDate :'employeeProfessionalInfomations.notMentionned'| translate
+                    }}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.spouseLastName'| translate}}</h5>
+                    {{ user.spouseLastName? user.spouseLastName: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.spouseLastName'| translate}}</h5>
+                    {{ user.spouseLastName? user.spouseLastName: ' ليس مدون'}}
+                </div>
+
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.email'| translate}}</h5>
+                    {{ user.spouseEmail? user.spouseEmail: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.spouseFirstName'| translate}}</h5>
+                    {{ user.spouseFirstName? user.spouseFirstName: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.spouseFirstName'| translate}}</h5>
+                    {{ user.spousefirstName? user.spousefirstName: ' ليس مدون'}}
+                </div>
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.phoneNumber'| translate}}</h5>
+                    {{ user.spousePhoneNumber? formatPhoneNumber(user.spousePhoneNumber):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.birthDate'| translate}}</h5>
+                    {{ user.spouseBirthDate}}
+                </div>
+
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.birthPlace'| translate}}</h5>
+                    <span
+                        *ngIf="!user.spouseBirthCommune && !user.spouseBirthState">{{'employeeProfessionalInfomations.notMentionned'|
+                        translate}}</span>
+                    {{ user.spouseBirthCommune? getCommune(user.spouseBirthCommune) +' ,': ''}}
+                    {{ user.spouseBirthState? getWilaya(user.spouseBirthState): ''}}
+                </div>
+                <div fxFlex="33">
+                    <h5>{{'employeeProfessionalInfomations.jugement'| translate}}</h5>
+                    {{ user.spouseJudgmentBirthDate? user.spouseJudgmentBirthDate:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- right side -->
+    <div class="right-side-form" fxLayout="column" fxFlex="30" fxFlex.lt-md="100" fxLayoutGap="25px">
+        <!-- first right card -->
+        <div class="card first-right-card" fxLayout="column">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.parents'|translate}}</div>
+            <div fxLayout="column" fxLayout.lt-md="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.fatherFirstName'| translate}}</h5>
+                    {{ user.fatherName? user.fatherName: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.fatherFirstName'| translate}}</h5>
+                    {{ user.fatherArabicName? user.fatherArabicName: ' ليس مدون'}}
+                </div>
+            </div>
+
+            <div fxLayout="column" fxLayout.lt-md="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.motherFirstLastName'| translate}}</h5>
+                    {{ user.motherName? user.motherName: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.motherFirstLastName'| translate}}</h5>
+                    {{ user.motherArabicName? user.motherArabicName: ' ليس مدون'}}
+                </div>
+            </div>
+        </div>
+        <!-- second right card-->
+       
+        </div>
+    </div>
+     <div class="card second-right-card" fxLayout="column">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.dependentChildren'|translate}}</div>
+            <div fxLayout="column">
+                <div class="info-line" fxFlex="50">
+                    <div style="margin-bottom: 10px;" fxLayout="row"
+                        *ngFor="let child of user.employeeChildren; let i=index; trackBy: trackByFn;">
+                        <div fxLayout="row" style="width: 100%;" fxLayoutAlign.lt-md="space-between">
+                            <div fxLayout="row" fxLayout.lt-md="column" style="width: 100%;">
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.lastname'| translate}}</h5>
+                                {{ child.lastName}}
+                            </div>
+            
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.firstName'| translate}}</h5>
+                                {{ child.firstName}}
+                            </div>
+                            
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.lastnameAR'| translate}}</h5>
+                                {{ child.arabicLastName}}
+                            </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" style="width: 100%;">
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.firstNameAR'| translate}}</h5>
+                                {{ child.arabicFirstName}}
+                            </div>
+
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.gender'| translate}}</h5>
+                                {{ child.civility === 'MR' ? 'Masculin' : 'Féminin'}}
+                            </div>
+
+                            <div fxFlex="33">
+                                <h5>{{'employeeProfessionalInfomations.birthDate'| translate}}</h5>
+                                {{ child.birthDate}}
+                            </div>
+                            </div>
+                        </div>
+                   
+                    <div *ngIf="user && user.employeeChildren.length === 0" class="info">
+                        {{'employeeProfessionalInfomations.notMentionned'|translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

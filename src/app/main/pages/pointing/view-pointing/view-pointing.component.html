@@ -1,0 +1,44 @@
+<div id="file-manager" class="page-layout simple right-sidebar">
+
+    <!-- CENTER -->
+    <div class="center" fxFlex>
+
+        <!-- HEADER -->
+        <div class="header accent p-24" fxLayout="column" fxLayoutAlign="space-between start">
+            <div class="toolbar w-100-p" fxLayout="row" fxLayoutAlign="space-between start">
+
+                <div class="left-side" fxLayoutAlign="start center" *ngIf="user">
+                    <div class="form">
+                        <mat-form-field appearance="outline" class="pointing-select-month">
+                            <mat-label>{{'pointing.monthsYears'| translate}}</mat-label>
+                            <input matInput [max]="maxDate" [matDatepicker]="dp" [formControl]="date">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="title">{{'pointing.nbrDays'| translate}} / {{month}} : {{dayNumber}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- / HEADER -->
+        <div class="global-content" *ngIf="isPointing">
+            <!-- CONTENT -->
+            <div class="content">
+                <app-docs-components-third-party-ngx-datatable style="width: 100%;" [unite]="unite" [rows]="rows" [columns]="columns" [externalPaging]="false" [externalSorting]="false" [pageCount]="pageCount" [totalItems]="totalItems" [pageIndex]="pageIndex">
+                </app-docs-components-third-party-ngx-datatable>
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+
+        <div class="empty-table" *ngIf="!isPointing">
+            <div class="empty-table-message">
+                <mat-icon class="assignment-icon">assignment</mat-icon>
+                <div class="note-div">{{'pointing.noPointing'| translate}} {{month}} {{ displayYear}}.</div>
+                <div class="note-div">{{'pointing.selectDate'| translate}}.</div>
+            </div>
+        </div>
+    </div>
+    <!-- / CENTER -->
+</div>

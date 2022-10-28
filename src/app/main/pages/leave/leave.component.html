@@ -1,0 +1,35 @@
+<div class="page-layout blank" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header accent p-24 h-100" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-xs="center start">
+            <!-- <mat-icon style="padding-top: 6px;margin-right: 15px;">calendar_today</mat-icon> -->
+            <div class="header-font-size">
+                {{'leave.title'|translate}}
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER-->
+
+    <!-- CONTENT-->
+    <div class="content">
+        <mat-tab-group dynamicHeight="true" (selectedTabChange)="selectedTabChange($event)">
+            <mat-tab>
+                <ng-template matTabLabel>
+                    <span class="tab-label-content" [matBadge]="countLeavesWaiting" matBadgeOverlap="false"
+                        matBadgeColor="accent">
+                        {{'leave.allLeaves'|translate}}
+                    </span>
+                </ng-template>
+                <app-view-all-leave [exercises]="exercises" (countWaintingLeavesEmiter)="leavesWaiting($event)">
+                </app-view-all-leave>
+            </mat-tab>
+
+            <mat-tab [label]="'leave.leavesStat'|translate">
+                <app-cumulative-leaves [rows]="exercises"></app-cumulative-leaves>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    <!-- CONTENT-->
+</div>

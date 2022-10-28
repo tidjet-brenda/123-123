@@ -1,0 +1,10 @@
+<div class="container1" *ngIf="user">
+    <div class="module"><a mat-button [routerLink]="[moduleLink]">{{module | translate}}</a></div>
+    <div class="userFullName" *ngIf="action">
+        <mat-icon> keyboard_arrow_right </mat-icon> <a mat-button disableRipple disabled>{{user.lastName}}
+            {{user.firstName}}</a>
+    </div>
+    <div class="action" *ngIf="action">
+        <mat-icon> keyboard_arrow_right </mat-icon> <a mat-button disableRipple disabled>{{action}}</a>
+    </div>
+</div>

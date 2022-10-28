@@ -1,0 +1,126 @@
+<div id="profile" class="page-layout simple tabbed" fusePerfectScrollbar *ngIf="absence">
+    <!-- HEADER -->
+    <div style="height: 70px !important;" class="header p-24" fxLayout="column" fxLayoutAlign="center center"
+        fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center" style="color: white;">
+            <button mat-icon-button class="mr-16" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div *ngIf="absence" fxLayout="column" fxLayoutAlign="start start">
+                <div class="h2">
+                    {{ fullName }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <mat-tab-group dynamicHeight="true">
+            <mat-tab label="Informations générales">
+                <div id="about" class="p-24" fxLayout="row wrap" style="margin-bottom: 35px;">
+                    <div class="about-content" fxLayout="column" fxFlex="100">
+                        <div class="profile-box info-box general" fxLayout="column"
+                            style="background-color: white;padding: 14px 5px;">
+                            <div class="content" *ngIf="absence">
+                                <div class="first_div">
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.beginDate'|translate}}
+                                        </div>
+                                        <div class="info">{{ absence.startDate | date :'d/M/yyyy'}} <span
+                                                *ngIf="absence.halfDayInBeginDate">  ({{'absence.halfDay'|translate}})</span> </div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.endDate'|translate}}
+                                        </div>
+                                        <div class="info">{{ absence.endDate | date :'d/M/yyyy'}}
+                                            <span *ngIf="absence.halfDayInEndDate">({{'absence.halfDay'|translate}})</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.duration'|translate}}
+                                        </div>
+                                        <div class="info">{{ duration }}</div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.absenceReason'|translate}}
+                                        </div>
+                                        <div class="info">
+                                            {{  'absence.' + absence.reason | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="second_div">
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.queryStatus'|translate}}
+                                        </div>
+                                        <div class="info"> {{  'absence.' + absence.status | translate}} </div>
+                                    </div>
+
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.calculateLeave'|translate}}
+                                        </div>
+                                        <div class="info">{{ 'absence.' + absence.accounted| translate}}</div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.justified'|translate}}
+                                        </div>
+                                        <div class="info"> {{'absence.' + absence.justified | translate}} </div>
+                                    </div>
+
+                                    <div class="info-line" *ngIf="absence.justified === 'Oui'">
+                                        <div class="title">
+                                            {{'absence.proof'|translate}}
+                                        </div>
+                                        <div class="info"><a [href]="attachementUrl+'/'+absence.attachmentId">{{
+                                                absence.attachmentFilename}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'absence.note'|translate}}
+                                        </div>
+                                        <div class="info"> {{ absence.note ? absence.note :'Aucun renseignement'}}</div>
+                                    </div>
+                                    
+                                    <div *ngIf="absence.status === 'DENIED'" class="info-line">
+                                        <div class="title">
+                                            {{'absence.note'|translate}}
+                                        </div>
+                                        <div class="info">
+                                            {{ absence.refusalReason ? absence.refusalReason : 'non renseigné'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <!-- / CONTENT -->
+</div>
+<div class="bottom-container-inner">
+    <div class="bottom-buttons-container" *ngIf="absence">
+        <button *ngIf="absence.status === 'ACCEPTED'" (click)="deleteAbsence()"
+            class="footer-button sirh-cancel-btn" mat-raised-button>
+            <mat-icon class="icon-button">close</mat-icon> {{'absence.cancel'|translate}}
+        </button>
+        <button *ngIf="absence.status === 'WAITING'" (click)="updateAbsence()" class="footer-button sirh-edit-btn"
+            mat-raised-button>
+            <mat-icon class="icon-button">edit</mat-icon> {{'absence.edit'|translate}}
+        </button>
+        <button *ngIf="absence.status === 'WAITING'" (click)="deleteAbsence(true)" class="footer-button sirh-delete-btn"
+            mat-raised-button>
+            <mat-icon class="icon-button">delete</mat-icon> {{'absence.delete'|translate}}
+        </button>
+    </div>
+</div>

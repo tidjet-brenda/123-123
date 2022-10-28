@@ -1,0 +1,27 @@
+<div class="page-layout blank" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header accent p-24 h-100" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="header-font-size">{{'absence.absenceManagement' | translate}}</div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <mat-tab-group [(selectedIndex)]="selectedTab" dynamicHeight="true" [selectedIndex]="0" [disableRipple]="true">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span>{{'absence.allAbsences' | translate}}</span>
+                    <span [matBadge]="nbrAbsencesWaitting" class="tab-label-content" matBadgeOverlap="false"
+                        matBadgeColor="accent">
+                    </span>
+                </ng-template>
+                <app-view-all-absences [selectedTab]="selectedTab"
+                    (nbrAbsencesWaitingEmitter)="changeNbrAbcences($event)"></app-view-all-absences>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+    <!-- / CONTENT -->
+</div>

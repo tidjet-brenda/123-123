@@ -1,0 +1,250 @@
+<div *ngIf="payInfoEMployee" class="page-container page-layout blank right-sidebar " fusePerfectScrollbar id="page">
+    <!-- / HEADER -->
+
+    <div class="page-content" id="file-manager">
+        <div class="top-container" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <div class="left-side">
+
+                <div *ngIf="payInfoEMployee.employeePayLines" class="informations-container" fxLayout="row"
+                    fxLayoutAlign="space-between">
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.poste' | translate}} : </span>
+                        <span class="line-content">{{ payInfoEMployee.employeeProfessionName ?
+                            payInfoEMployee.employeeProfessionName :
+                            'fichePaie.notMentionned' | translate }}</span>
+                    </div>
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.organisme' | translate}} : </span>
+                        <span class="line-content">{{user.levelInstanceName ? user.levelInstanceName :
+                            'fichePaie.notMentionned' | translate}}</span>
+                    </div>
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.numSS' | translate}} : </span>
+                        <span class="line-content">{{ user.socialSecurityNumber ? user.socialSecurityNumber
+                            :'fichePaie.notMentionned' | translate}}</span>
+                    </div>
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.birthDate' | translate}} : </span>
+                        <span class="line-content">{{ user.birthDate | date : "dd/MM/yyyy" }}</span>
+                    </div>
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.startDate' | translate}} : </span>
+                        <span class="line-content">{{ user.startDate | date : "dd/MM/yyyy" }}</span>
+                    </div>
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.leave' | translate}} : </span>
+                        <span class="line-content">{{user.additionalLeaveDaysNumber ?(user.additionalLeaveDaysNumber +
+                            ('fichePaie.days' | translate)): 'fichePaie.notMentionned' | translate}}</span>
+                    </div>
+                    <div *ngIf="user.street && user.commune && user.state " class="line-container">
+                        <span class="line-title">{{'fichePaie.Adresse' | translate}} : </span>
+                        <span class="line-content">
+                            {{user.street ? user.street+',' :''}}
+                            {{user.commune ? getCommune(user.commune) +',' :''}}
+                            {{user.state ? getWilaya(user.state) : ''}}
+                        </span>
+                        <span class="line-content" *ngIf="!user.street && !user.commune && !user.state ">
+                            {{'fichePaie.notMentionned' | translate}}
+                        </span>
+                    </div>
+                    <div *ngIf="payInfoEMployee.daysNumber" class="line-container">
+                        <span class="line-title"> {{'fichePaie.workedPeriod' | translate}} : </span>
+                        <span class="line-content">
+                            {{payInfoEMployee.contractRegime === 'DAYS' ? (payInfoEMployee.daysNumber +
+                            ('fichePaie.days' | translate)) :
+                            ( payInfoEMployee.hoursNumber + ('fichePaie.hours' | translate))}}
+                        </span>
+                    </div>
+                    <div *ngIf="user.bankAccountNumber" class="line-container">
+                        <span class="line-title">{{'fichePaie.bankAccountNum' | translate}} : </span>
+                        <span class="line-content">
+                            {{user.bankAccountNumber ? user.bankAccountNumber: 'non renseigner'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="payInfoEMployee.employeePayLines" class="tab-container">
+            <div class="tab-header" fxLayout="column" fxLayoutAlign="center center">
+                {{'fichePaie.rubrics' | translate}}
+            </div>
+            <div class="tab-rows">
+                <div fxLayout="column" fxLayoutAlign="flex-start">
+                    <div class="header-row" fxLayout="row" fxLayoutAlign="flex-start center" *ngIf="!isMobile">
+                        <div class="row1">{{'fichePaie.code' | translate}}</div>
+                        <div class="row2">{{'fichePaie.title' | translate}}</div>
+                        <div class="row3">{{'fichePaie.nbr' | translate}}</div>
+                        <div class="row4">{{'fichePaie.base' | translate}}</div>
+                        <div class="row5">{{'fichePaie.rate' | translate}}</div>
+                        <div class="row6">{{'fichePaie.gain' | translate}}</div>
+                        <div class="row7">{{'fichePaie.deduction' | translate}}</div>
+                    </div>
+                    <div class="header-row" fxLayout="row" fxLayoutAlign="flex-start center" *ngIf="isMobile">
+                        <div class="row1"></div>
+                        <div class="row2">{{'fichePaie.title' | translate}}</div>
+                        <div class="row3"></div>
+                        <div class="row4"></div>
+                        <div class="row5"></div>
+                        <div class="row6">{{'fichePaie.amount' | translate}}</div>
+                        <div class="row7"></div>
+                    </div>
+
+                </div>
+                <div class="simple-rows" fxLayout="column" fxLayoutAlign="flex-start">
+                    <div *ngFor="let row of payLines;let i=index;" [ngClass]="{'empty-row': 
+                      (i!==0 && row.order === payLines[i-1].order) || row.value===null, 
+                      'simple-row': i==0 || 
+                      (i>=0 && row.order !== payLines[i-1].order) || row.order>=0, 
+                      'not-selectable-row': row.empty}" (click)="selectRow(row)">
+                        <div *ngIf="row.order >= 0">
+                            <div>
+                                <div class="inner-row" fxLayout="row" fxLayoutAlign="space-between center"
+                                    *ngIf="!isMobile">
+                                    <div class="row1">{{row.payrollSectionCode}}</div>
+                                    <div class="row2">
+                                        {{ (row.valueSource && row.valueSource === 'LEAVE') ?
+                                        ('CONGÉE '+ row.year) : row.customName ? row.customName :
+                                        row.payrollSectionName}}
+                                    </div>
+                                    <div class="row3">{{row.number ? row.number : ''}}</div>
+                                    <div class="row4">{{row.base ? currencyFormat(row.base) : ''}}
+                                    </div>
+                                    <div class="row5">{{row.rate ? currencyFormat(row.rate) : ''}}
+                                    </div>
+                                    <div class="row6">{{row.gain ? currencyFormat(row.gain) : ''}}
+                                    </div>
+                                    <div class="row7">
+                                        {{row.deduction ? currencyFormat(row.deduction) : ''}}</div>
+                                </div>
+                                <div class="inner-row" fxLayout="row" fxLayoutAlign="space-between center"
+                                    *ngIf="isMobile">
+                                    <div class="row1"></div>
+                                    <div class="row2">
+                                        {{ (row.valueSource && row.valueSource === 'LEAVE') ?
+                                        ('CONGÉE '+ row.year) : row.customName ? row.customName :
+                                        row.payrollSectionName}}
+                                    </div>
+                                    <div class="row3"></div>
+                                    <div class="row4"></div>
+                                    <div class="row5"></div>
+                                    <div class="row6">
+                                        {{row.gain ? '+'+row.gain : (row.deduction ? '-'+ row.deduction : '')}}
+                                    </div>
+                                    <div class="row7"></div>
+                                </div>
+                            </div>
+                            <div *ngFor="let row2 of payLines;">
+                                <div *ngIf="row2.order === row.order && row2.id !== row.id">
+                                    <div class="inner-row" fxLayout="row" fxLayoutAlign="space-between center"
+                                        style="margin-top: -17px;" *ngIf="!isMobile">
+                                        <div class="row1"></div>
+                                        <div class="row2"></div>
+                                        <div class="row3">{{row2.number ? row2.number : ''}}</div>
+                                        <div class="row4">
+                                            {{row2.base ? currencyFormat(row2.base) : ''}}
+                                        </div>
+                                        <div class="row5">
+                                            {{row2.rate ? currencyFormat(row2.rate) : ''}}
+                                        </div>
+                                        <div class="row6">
+                                            {{row2.gain ? currencyFormat(row2.gain) : ''}}</div>
+                                        <div class="row7">
+                                            {{row2.deduction ? currencyFormat(row2.deduction) : ''}}</div>
+                                    </div>
+                                    <div class="inner-row" fxLayout="row" fxLayoutAlign="space-between center"
+                                        style="margin-top: -17px;" *ngIf="isMobile">
+                                        <div class="row1"></div>
+                                        <div class="row2"></div>
+                                        <div class="row3"></div>
+                                        <div class="row4"></div>
+                                        <div class="row5"></div>
+                                        <div class="row6">
+                                            {{row2.gain ? '+'+row2.gain : (row2.deduction ? '-'+ row2.deduction : '')}}
+                                        </div>
+                                        <div class="row7"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="warning-row" *ngIf="row.empty" fxLayout="row" fxLayoutAlign="center center">
+                                <div class="warning-text" fxLayout="row" fxLayoutAlign="center center">
+                                    {{'fichePaie.notSelectableRow' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="inner-row" *ngIf="row.order && row.order<0 && row.value!==null" fxLayout="row"
+                            fxLayoutAlign="space-between center">
+                            <div class="row1"></div>
+                            <div class="row2">{{'fichePaie.payrolls.'+row.name | translate}}</div>
+                            <div class="row3"></div>
+                            <div class="row4">
+                                {{ (row.name == '8' || row.name == '11') && payInfoEMployee &&
+                                payInfoEMployee.contributorySalary ? currencyFormat(payInfoEMployee.contributorySalary)
+                                : ''}}
+                                {{ row.name == '9' && payInfoEMployee.taxableSalary ?
+                                currencyFormat(payInfoEMployee.taxableSalary) : '' }}
+                            </div>
+                            <div class="row5">
+                                {{ row.name == '8' && row.value? '9%' : '' }}{{ row.name == '11' && row.value? '0.375%'
+                                : '' }}
+                            </div>
+                            <div class="row6"></div>
+                            <div class="row7">{{ row.value!=null ? currencyFormat(row.value): ''}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-footer">
+
+                <div class="net-container">
+                    <div class="footer-rows">
+                        <div class="footer-row">
+                            <div class="footer-name">
+                                <div>
+                                    {{'fichePaie.socialSecurity' | translate}}
+
+                                </div>
+                            </div>
+                            <div class="footer-value">
+                                <div>
+                                    {{payInfoEMployee.nationalSocialInsuranceFund ?
+                                    currencyFormat(payInfoEMployee.nationalSocialInsuranceFund) : 'non calculé'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-rows">
+                        <div class="footer-row">
+                            <div class="footer-name">
+                                <div> {{'fichePaie.netAmount' | translate}} </div>
+                            </div>
+                            <div class="footer-value">
+                                <div>
+                                    {{currencyFormat(payInfoEMployee.net)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="noPayLine" *ngIf="!payInfoEMployee.employeePayLines">
+            <div class="message">
+                <mat-icon class="assignment-icon">assignment</mat-icon>
+                <div class="text">
+                    <h5>
+                        {{'fichePaie.noPay1' | translate}} {{month}} {{year}}.
+                    </h5>
+                    <h5>
+                        {{'fichePaie.noPay2' | translate}}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div id="activate-account" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+
+    <div id="activate-account-intro" fxFlex fxHide fxShow.gt-xs>
+        <home-page></home-page>
+    </div>
+
+    <div id="activate-account-form-wrapper" fusePerfectScrollbar
+        [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+
+        <div id="activate-account-form">
+
+            <div class="logo" fxHide.gt-xs>
+                <img src="../../../../assets/images/logos/Calque 1.png" alt="Logo PORTAIL-EMPLOYE">
+            </div>
+
+            <div class="title">{{'authentification.activateAccount'|translate}}</div>
+
+            <form name="activate-accountForm" [formGroup]="activateAccountForm" novalidate autocomplete="off">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.firstName'|translate}}</mat-label>
+                    <input matInput [formControl]="firstNameControl">
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.laststName'|translate}}</mat-label>
+                    <input matInput [formControl]="lastNameControl">
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.telNum'|translate}}</mat-label>
+                    <input matInput [formControl]="phoneControl">
+                    <mat-icon matSuffix class="secondary-text">call</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.adress'|translate}}</mat-label>
+                    <input matInput [formControl]="emailControl">
+                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.pwd'|translate}}</mat-label>
+                    <input matInput [type]=" hidePwd ? 'password': 'text' " [formControl]="passwordControl">
+                    <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hidePwd">
+                        <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-hint class="mat-error" *ngIf="
+                                            (passwordControl.dirty ||
+                                            passwordControl.touched) &&
+                                            passwordControl.errors &&
+                                             passwordControl.errors['required']">
+                        {{'authentification.required'|translate}}.
+                    </mat-hint>
+                    <mat-hint class="mat-error" *ngIf="(passwordControl.dirty ||
+                            passwordControl.touched) &&
+                            passwordControl.errors &&
+                            passwordControl.errors['minlength']">
+                        {{'authentification.pwdLength'|translate}}.
+                    </mat-hint>
+                    <mat-hint class="mat-error" *ngIf="((passwordControl.dirty ||
+                            passwordControl.touched) &&
+                            passwordControl.errors &&
+                            passwordControl.errors['pattern']) && !((passwordControl.dirty ||
+                            passwordControl.touched) &&
+                            passwordControl.errors &&
+                            passwordControl.errors['minlength'])">
+                        {{'authentification.pwdLength2'|translate}}.
+                    </mat-hint>
+
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.pwdConfirm'|translate}}</mat-label>
+                    <input matInput [type]=" hidePwdC ? 'password': 'text' " [formControl]="passwordConfirmControl">
+                    <button mat-icon-button matSuffix (click)="hidePwdC = !hidePwdC"
+                        [attr.aria-label]="'Hide passwordConfirm'" [attr.aria-pressed]="hidePwdC">
+                        <mat-icon>{{hidePwdC ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordConfirmControl.hasError('required')">
+                        {{'authentification.required'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="!passwordConfirmControl.hasError('required') &&
+                               passwordConfirmControl.hasError('passwordsNotMatching')">
+                               {{'authentification.pwdidentiq'|translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button class="submit-button sirh-validate-btn" aria-label="CREATE AN ACCOUNT"
+                    [disabled]="activateAccountForm.invalid"
+                    [ngClass]="{'sirh-disabled-btn': activateAccountForm.invalid}" (click)="activateAccount()">
+                    {{'authentification.activateAccountVerbe'|translate}}
+                </button>
+
+            </form>
+
+            <div class="activate-account" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">{{'authentification.haveAlredyAccount'|translate}}</span>
+                <a class="link" routerLink="/login">{{'authentification.getConnect'|translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

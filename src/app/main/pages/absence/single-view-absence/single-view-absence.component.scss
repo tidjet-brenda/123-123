@@ -1,0 +1,203 @@
+@import "src/@fuse/scss/fuse";
+
+#profile {
+    height: 100%;
+    .header {
+        background: url("/assets/images/backgrounds/dark-material-bg.jpg")
+            no-repeat 0 45%;
+        background-size: cover;
+        height: 70px !important;
+
+        .actions {
+            button {
+                text-transform: none;
+                padding: 0 16px;
+                margin: 0 0 0 8px;
+            }
+        }
+    }
+
+    .content {
+        flex: 1;
+
+        mat-tab-group {
+            height: 100%;
+
+            .mat-tab-body-wrapper {
+                flex-grow: 1;
+            }
+            #about {
+                .about-content {
+                    // Profile boxes
+                    .profile-box {
+                        border-radius: 4px;
+                        overflow: hidden;
+                        margin-bottom: 16px;
+                        @include mat-elevation(2);
+
+                        header {
+                            padding: 16px;
+
+                            .title {
+                                font-size: 17px;
+                            }
+
+                            .more {
+                                cursor: pointer;
+                            }
+                        }
+                        @media (min-width: 800.2px) {
+                            .content {
+                                padding: 16px;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                .second_div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    width: 45%;
+                                    margin-top: 0;
+                                }
+                                .first_div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    width: 45%;
+                                }
+                                .classInput {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        @media (max-width: 800px) {
+                            .content {
+                                padding: 16px;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between flex-start;
+                                .second_div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    width: 49%;
+                                    margin-top: 0 !important;
+                                }
+                                .first_div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    width: 49%;
+                                }
+                                .classInput {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        @media (max-width: 600px) {
+                            .content {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: stretch flex-start;
+                                padding: 16px;
+                                .second_div {
+                                    width: 100%;
+                                    margin-top: 0 !important;
+                                }
+                                .first_div {
+                                    width: 100%;
+                                }
+                                .classInput {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        .secondary-text {
+                            min-width: 100px;
+                            text-align: right;
+                        }
+
+                        footer {
+                            padding: 8px;
+                            border-top: 1px solid;
+                        }
+
+                        &.info-box {
+                            .info-line {
+                                margin-bottom: 24px;
+
+                                .title {
+                                    font-size: 15px;
+                                    font-weight: 600;
+                                    padding-bottom: 4px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.bottom-container-inner {
+    z-index: 1;
+    height: 62px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(30, 33, 41, 0) 0%,
+        rgba(30, 33, 41, 0) 28%,
+        rgba(30, 33, 41, 0.65) 100%
+    );
+    @media(max-width: 600px){
+        height: 36px;
+    }
+}
+.bottom-buttons-container {
+    height: 48px;
+    // background-color: #1e2129f5;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    margin-right: 40px;
+    // border-radius: 10px;
+    // box-shadow: 2px 4px 10px -2px #212121;
+    // padding: 0 2px;
+    @media(max-width: 600px){
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+.footer-button {
+    padding: 1px 10px !important;
+    margin-left: 5px;
+}
+.icon-button {
+    font-size: 20px;
+}
+.btn-disabled {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    color: rgba(0, 0, 0, 0.26) !important;
+}
+
+@media all and (min-width: 800px) {
+    #profile {
+        position: absolute !important;
+    }
+}

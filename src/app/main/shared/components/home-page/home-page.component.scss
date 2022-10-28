@@ -1,0 +1,17 @@
+
+.carrousel {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+::ng-deep .carousel-slide {
+    height: 100vh !important;
+}
+
+::ng-deep .carousel-indicators {
+    margin: auto !important;
+    > button {
+        box-shadow: unset !important;
+    }
+}

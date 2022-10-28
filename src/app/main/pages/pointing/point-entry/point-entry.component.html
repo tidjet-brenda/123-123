@@ -1,0 +1,95 @@
+<div id="point-manager" class="page-layout simple right-sidebar">
+    <div class="center" fusePerfectScrollbar>
+        <div class="header accent p-24">
+            <h1 *ngIf="entry">{{'pointing.headers.entry'| translate}}</h1>
+            <h1 *ngIf="!entry">{{'pointing.headers.exit'| translate}}</h1>
+        </div>
+        <div class="notMobile" *ngIf="!isMobile">
+            <!--not in mobile then show msg-->
+            <div class="message">
+                <mat-icon class="assignment-icon">phone_android</mat-icon>
+                <div class="text">
+                    {{'pointing.phoneDeviceRequired'| translate}}
+                    <span *ngIf="!entry"> {{'pointing.exit'| translate}} </span>
+                    <span *ngIf="entry"> {{'pointing.entry'| translate}} </span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isMobile">
+            <!--in mobile-->
+            <div *ngIf="!error">
+                <div class="scanner" *ngIf="!isScanned">
+                    <!--step 1: show camera to scan the qr code-->
+                    <div class="loader" fxLayout="column" *ngIf="!cameraInit" fxLayoutAlign="center center">
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="camera">
+                        <div class="line" *ngIf="setLine && !qrCodeValue"></div>
+                        <div class="border border2" *ngIf="setLine && !qrCodeValue">
+                        </div>
+                        <div class="border border3" *ngIf="setLine && qrCodeValue">
+                        </div>
+                        <zxing-scanner  #scanner [enable]="scannerEnabled" start="true"
+                            (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="onCodeResult($event)"
+                            (camerasNotFound)="scanErrorHandler('noDevice')" (scanFailure)="scanFailureHandler($event)">
+                        </zxing-scanner>
+                    </div>
+                </div>
+                <div *ngIf="isScanned">
+                    <div class="successScan success-scan-position" *ngIf="!successPoint">
+                        <!--step 2: set timeout to get a good position infos-->
+                        <div class="message">
+                            <mat-progress-spinner class="example-margin" [color]="'accent'" [mode]="'indeterminate'" [value]="50"
+                                [diameter]="150" [strokeWidth]="7">
+                            </mat-progress-spinner>
+                        </div>
+                        <div class="status-sentence">
+                            {{'pointing.' + getPositionStatus | translate}}
+                        </div>
+
+                    </div>
+                    <div class="successScan" *ngIf="successPoint">
+                        <!--step 3: show success msg-->
+                        <div class="message">
+                            <mat-icon class="assignment-icon">done</mat-icon>
+                            <div class="text">
+                                {{'pointing.scannDone'| translate}}
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="successScan-redirection">
+                            <a (click)="goToPointings()" style="cursor: pointer;color: black !important">
+                                {{'pointing.goToPointing'| translate}}</a>
+                            <mat-icon style="color:black !important;">arrow_forward</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="error">
+                <!--if error occurred then show msg-->
+                <div class="scanError">
+                    <div class="message">
+                        <div>
+                            <mat-icon class="assignment-icon">close</mat-icon>
+                            <div class="text">
+                                <span *ngIf="errorCode">{{'pointing.errors.' + errorCode| translate}}</span>
+                            </div>
+                        </div>
+                        <button *ngIf="isScanned && this.errorCode != 'positionPermissionDenied' && this.errorCode !='notvalid'" mat-raised-button color="accent" (click)="action(1)">
+                            {{'pointing.refresh'| translate}}
+                            <mat-icon style="color: white !important;">my_location</mat-icon>
+                        </button>
+                        <button *ngIf="this.errorCode != 'positionPermissionDenied'" mat-raised-button color="accent" (click)="action(0)">
+                            {{'pointing.retry'| translate}}
+                            <mat-icon style="color: white !important;">autorenew</mat-icon>
+                        </button>
+                        <button *ngIf="this.errorCode === 'positionPermissionDenied'" mat-raised-button color="accent" (click)="action(2)">
+                            {{'pointing.reload'| translate}}
+                            <mat-icon style="color: white !important;">autorenew</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

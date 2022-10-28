@@ -1,0 +1,19 @@
+.button-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+button {
+    margin-right: 5px;
+    &:first-of-type{
+        color: #039be5;
+    }
+    &:last-of-type{
+        color: red;
+    }
+}
+::ng-deep.mat-dialog-container{
+    width: 400px !important;
+}

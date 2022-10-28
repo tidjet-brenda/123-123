@@ -1,0 +1,196 @@
+:host {
+  .content {
+    width: 100%;
+    ::ng-deep.datatable-header-cell,
+        ::ng-deep.datatable-body-cell {
+            justify-content: center;
+            align-items: center;
+        }
+  }
+  .docs > .content {
+    max-width: unset !important;
+  }
+}
+
+:host-context(app-employee-rubric) .content {
+  ::ng-deep.datatable-header-cell:first-child,
+  ::ng-deep.datatable-body-cell:first-child {
+      // justify-content: flex-start !important;
+      padding-left: 64px;
+      // align-items: flex-start !important;
+  }
+}
+
+:host-context(app-view-employee-rubric) .content {
+  ::ng-deep.datatable-header-cell:first-child,
+  ::ng-deep.datatable-body-cell:first-child {
+      // justify-content: flex-start !important;
+      padding-left: 64px;
+      // align-items: flex-start !important;
+  }
+}
+
+::ng-deep.datatable-header {
+  background-color: #2d323e;
+  min-height: 45px !important;
+  display: flex !important;
+}
+
+::ng-deep.datatable-header-cell {
+  color: rgb(255, 255, 255) !important;
+  font-weight: bold !important;
+  font-size: 15px !important;
+}
+
+::ng-deep .datatable-body-row {
+  min-height: 48px !important;
+}
+
+::ng-deep .datatable-row-wrapper {
+  border-bottom-color: rgba(0, 0, 0, 0.09);
+}
+::ng-deep .datatable-body-cell {
+  line-height: 18px !important;
+  font-size: 14px !important;
+}
+
+::ng-deep.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group {
+  background-color: rgb(214, 214, 214);
+}
+::ng-deep.ngx-datatable .datatable-row-group {
+  cursor: pointer;
+}
+::ng-deep.ngx-datatable.material .datatable-header .datatable-header-cell {
+  background-color: unset;
+}
+.orange-600 {
+  color: white !important;
+}
+
+.company-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 145px;
+  height: 1.2em;
+  white-space: nowrap;
+}
+
+.general-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.styled-fab-button {
+  height: 44px;
+  width: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2) !important;
+}
+.styled-fab-button:active {
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14) !important;
+}
+.form-field-container {
+  margin: 5px 0;
+  max-height: 90px;
+}
+
+.checkbox-column-container {
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.checkbox-container {
+  height: 61px;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  border-bottom: 1px solid;
+  border-bottom-color: rgba(0, 0, 0, 0.09);
+  background-color: white;
+}
+.checkbox-header {
+  background-color: #2d323e;
+  height: 65px !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  margin-left: 62px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  background-color: white;
+  border-radius: 3px;
+}
+
+.checkbox-element {
+  color: white;
+  text-align: center;
+  margin-left: 10px;
+  display: flex;
+}
+
+.checkbox-button {
+  color: white;
+  width: 17px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  mat-icon {
+      font-size: 20px;
+  }
+}
+
+.option-item {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.mat-menu-item {
+  max-height: 50px;
+}
+::ng-deep.datatable-body-cell, ::ng-deep.datatable-header-cell{
+  justify-content: left !important;
+}
+::ng-deep .filter-drop-down-icon {
+  svg {
+      width: 10px;
+      height: 10px;
+  }
+}
+::ng-deep .mat-menu-panel {
+  min-height: 38px !important;
+  overflow: hidden;
+}
+::ng-deep .mat-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.mat-menu-item {
+  font-size: 13px !important;
+  height: 40px !important;
+  padding: 0 12px !important;
+  line-height: 40px !important;
+}
+.mat-menu-item .mat-icon {
+  margin-right: 10px !important;
+  font-size: 22px !important;
+}
+.mat-menu-item-submenu-trigger::after {
+  top: 54% !important;
+  right: 8px !important;
+}

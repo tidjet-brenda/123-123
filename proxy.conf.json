@@ -1,0 +1,56 @@
+{
+    "/api": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/api": "/api"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/uaa": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/uaa": "/uaa"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/companymanagement": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/companymanagement": "/companymanagement"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/auth": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/auth": "/auth"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/pay": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/pay": "/pay"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/trackability": {
+        "target": "http://164.68.121.214:8080",
+        "secure": true,
+        "pathRewrite": {
+            "^/trackability": "/trackability"
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

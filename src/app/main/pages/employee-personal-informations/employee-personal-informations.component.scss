@@ -1,0 +1,405 @@
+@import "src/@fuse/scss/fuse";
+
+#profile {
+    .head {
+        height: 100px;
+        width: 100%;
+        display: inline-block;
+        background: url("/assets/images/backgrounds/dark-material-bg.jpg") no-repeat;
+        background-size: cover;
+        .fullName {
+            font-size: 25px;
+            font-weight: 300;
+            line-height: 1;
+            color: white;
+        }
+        .sub-head {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: all 0.09s;
+            .profil-img {
+                height: 80px;
+                width: 80px;
+                border-radius: 100%;
+                background-color: #fff;
+                margin: 10px 20px;
+                overflow: hidden;
+            }
+        }
+    }
+    .container1 {
+        background: whitesmoke;
+        height: 100%;
+        button {
+            float: right;
+            margin-right: 30px;
+            margin-bottom: 20px;
+            width: 150px;
+            height: 40px;
+            justify-items: center;
+            padding: auto auto;
+        }
+
+        .informations {
+            background: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            @include mat-elevation(4);
+
+            @include media-breakpoint("xs") {
+                margin: 15px;
+                padding: 20px;
+            }
+
+            @include media-breakpoint("sm") {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h5 {
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            .leftInfos {
+                width: 45%;
+            }
+            .rightInfos {
+                width: 45%;
+            }
+            .info {
+                width: 100%;
+                margin: 13px;
+            }
+        }
+
+        .modifyProfile {
+            background: whitesmoke;
+            width: 100%;
+
+            .leftInfos {
+                width: 45%;
+            }
+            .rightInfos {
+                width: 45%;
+            }
+            .form-input {
+                width: 100%;
+            }
+
+            form {
+                background: white;
+                width: 96%;
+                margin: auto;
+                padding: 20px;
+                margin-top: 15px;
+                @include mat-elevation(4);
+                display: flex;
+                flex-direction: row;
+
+                @include media-breakpoint("xs") {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .leftInfos {
+                    margin: auto;
+                    margin-left: 10px;
+                }
+            }
+
+            button {
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .modifyProfile {
+                .leftInfos {
+                    width: 49%;
+                }
+                .rightInfos {
+                    width: 49%;
+                }
+                .form-input {
+                    width: 100%;
+                }
+
+                button {
+                    margin: 10px;
+                }
+            }
+        }
+
+        @media (max-width: 700px) {
+            .modifyProfile {
+                .leftInfos {
+                    width: 49%;
+                }
+                .rightInfos {
+                    width: 49%;
+                }
+                .form-input {
+                    width: 100%;
+                }
+
+                button {
+                    margin: 10px;
+                }
+            }
+        }
+
+        .conf {
+            border-radius: 5px;
+            height: 100px;
+            width: 95%;
+            background: white;
+            margin: auto;
+            margin-top: 25px;
+            padding: 10px;
+            font-weight: 600;
+            @include mat-elevation(4);
+
+            @include media-breakpoint("xs") {
+                padding: 20px;
+                margin: auto;
+                margin-top: 10px;
+            }
+
+            @include media-breakpoint("sm") {
+                width: 90%;
+                margin: 25px;
+            }
+
+            .info-line {
+                margin-top: 20px;
+                left: 29px;
+                position: relative;
+                .title {
+                    font-size: 15px;
+                    font-weight: 600;
+                    padding-bottom: 4px;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            button {
+                float: right;
+                position: relative;
+                margin-right: -5px;
+                margin-left: 10px;
+                margin-top: 130px;
+                width: 100px;
+                justify-items: center;
+                // padding: 5px;
+            }
+            h3 {
+                font-weight: 600;
+            }
+        }
+
+        .reset-password {
+            background: white;
+            border-radius: 5px;
+            margin: 20px;
+            @include mat-elevation(3);
+
+            form {
+                margin: 25px;
+                padding: 10px;
+                padding-top: 25px;
+
+                mat-form-field {
+                    width: 60%;
+
+                    @include media-breakpoint("xs") {
+                        width: 100%;
+                    }
+                }
+
+                mat-form-field {
+                    button {
+                        margin: 5px;
+                        width: 20px;
+                    }
+                }
+            }
+
+            button {
+                margin: 3px !important;
+                width: 100px;
+                // height: 35px;
+                margin-bottom: 10px !important;
+            }
+        }
+    }
+   
+    .card-1 {
+        width: 49%;
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid #d3d3d3;
+        @media (max-width: 600px){
+            width: 100%;
+        }
+        .classInput{
+            width: 100%;
+        }
+        .card-title {
+            padding: 5px;
+            margin-left: 16px;
+            background-color: #2d3346;
+            color: white;
+            width: 200px;
+            font-weight: 600;
+            margin-top: -15px;
+            border: 1px solid #d3d3d3;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .first-div {
+            padding: 16px;
+            width: 49%;
+        }
+        .second-div {
+            padding: 16px;
+            width: 49%;
+        }
+       
+        .info-line {
+            margin-bottom: 24px;
+            .title {
+                font-size: 15px;
+                font-weight: 600;
+                padding-bottom: 4px;
+            }
+           
+        }
+    }
+
+    .card-2 {
+        width: 49%;
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid #d3d3d3;
+        @media (max-width: 600px){
+            width: 100%;
+            margin-top: 18px;
+        }
+        .classInput{
+            width: 100%;
+        }
+        .card-title {
+            padding: 5px;
+            margin-left: 16px;
+            background-color: #2d3346;
+            color: white;
+            width: 200px;
+            font-weight: 600;
+            margin-top: -15px;
+            border: 1px solid #d3d3d3;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .first-div {
+            padding: 16px;
+            width: 49%;
+        }
+        .second-div {
+            padding: 16px;
+            width: 49%;
+        }
+       
+        .info-line {
+            margin-bottom: 24px;
+            .title {
+                font-size: 15px;
+                font-weight: 600;
+                padding-bottom: 4px;
+            }
+           
+        }
+    }
+}
+@media all and(max-width:600px) {
+    .info-line {
+        margin-top: 10px !important;
+    }
+}
+
+.footer-button {
+    padding: 1px 10px;
+    margin-left: 5px;
+}
+.icon-button {
+    font-size: 20px;
+}
+
+@media all and (max-width: 505px) {
+    .head {
+        position: relative !important;
+        top: -4px !important;
+        height: 130px !important;
+    }
+    .sub-head {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .fullName {
+        position: relative !important;
+        top: 4px !important;
+    }
+}
+
+@media all and (max-width: 370px) {
+    .mat-error {
+        font-size: 9px !important;
+    }
+}
+.grecaptcha-badge {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+.bottom-container-inner-basic {
+    z-index: 1;
+    height: 62px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(30, 33, 41, 0) 0%,
+      rgba(30, 33, 41, 0) 28%,
+      rgba(30, 33, 41, 0.65) 100%
+    );
+  }
+  .bottom-buttons-container-basic {
+    height: 48px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    margin-right: 40px;
+  }
+  .footer-button {
+    padding: 1px 10px !important;
+    margin-left: 5px;
+  }
+  .icon-button {
+    font-size: 20px;
+  }

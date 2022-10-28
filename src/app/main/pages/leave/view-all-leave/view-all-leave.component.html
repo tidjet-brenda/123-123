@@ -1,0 +1,49 @@
+<div id="about" fxLayout="row wrap">
+    <div class="about-content" fxLayout="column" fxFlex="100">
+        <div class="fields-container" fxLayout="row" fxLayoutAlign="space-between">
+            <mat-form-field appearance="outline" class="custom-date-leave">
+                <mat-label> {{'leave.period'|translate}} </mat-label>
+                <mat-date-range-input [formGroup]="dateFormGroup" [rangePicker]="picker">
+                    <input [readOnly]="true" matStartDate formControlName="begin" placeholder="Daté début">
+                    <input [readOnly]="true" matEndDate formControlName="end" placeholder="date fin">
+                </mat-date-range-input>
+                <button [disabled]="!(dateFormGroup.controls.begin.value && dateFormGroup.controls.end.value)"
+                    fxFlex="10" style="background-color: transparent; border: none; cursor: pointer;"
+                    (click)="clearDate()"
+                    [ngStyle]="{'cursor': !(dateFormGroup.controls.begin.value && dateFormGroup.controls.end.value) ? 'auto': 'pointer'}">
+                    <mat-icon
+                        [ngStyle]="{'color': !(dateFormGroup.controls.begin.value && dateFormGroup.controls.end.value) ? 'transparent': 'gray'}"
+                        style="font-size: 14px; color:gray; position: relative; top:4px;">close</mat-icon>
+                </button>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="height: 50px !important; margin-left: 5px !important;">
+                <mat-label> {{'leave.allExercises'|translate}}</mat-label>
+                <mat-select (selectionChange)="selectionChanged($event)" [formControl]="leaveExerciseControl">
+                    <mat-option [value]="0">{{'leave.all'|translate}}</mat-option>
+                    <mat-option *ngFor="let exercice of exercises " [value]="exercice">
+                        {{exercice.year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div style="padding: 5px;">
+                <button mat-raised-button class="footer-button sirh-add-btn" (click)="newLeave()">
+                    <mat-icon class="add-button-icon">add</mat-icon>{{'leave.add'|translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="table">
+            <app-docs-components-third-party-ngx-datatable [rows]="rows" [statusStatus]="true" [columns]="columns"
+                [unite]="unite" [actions]="actions" (emitActionOnTable)='actionOnTable($event)'
+                (rowSelected)="onRowSelection($event)" (rowSelection)='rowSelected($event)'
+                (selectionChanged)='rowSelected($event)' [pageCount]="pageCount" [totalItems]="totalItems"
+                [pageIndex]="pageIndex" [waiting]="countWaintingLeaves" (changePage)="changePage($event)"
+                [noRequests]="noLeavesRequest" (sortData)="sortData($event)" (singleFilter)="changeFilter($event)"
+                [isLeaveFilter]="true">
+            </app-docs-components-third-party-ngx-datatable>
+        </div>
+
+    </div>
+</div>

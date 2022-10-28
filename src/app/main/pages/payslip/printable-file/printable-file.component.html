@@ -1,0 +1,188 @@
+<div id="export-content" class="page-container page-layout blank right-sidebar inner-scroll" fusePerfectScrollbar>
+    <div class="page-content" id="file-manager">
+        <div class="top-container">
+
+            <div class="left-side" fxLayout="column" fxLayoutAlign="space-between">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <div class="title-style" fxLayout="row" fxLayoutAlign="center center">
+                        {{'fichePaie.bulletin' | translate}} ( {{selectedMonth}} )
+                    </div>
+                    <div class="periode-style" *ngIf="startDate && lastDate">
+                        {{'fichePaie.paieOf' | translate}} {{startDate}} {{'fichePaie.to' | translate}} {{ lastDate }}
+                    </div>
+                </div>
+
+                <div class="informations-container" fxLayout="column" fxLayoutAlign="center" style="min-height: 62px;">
+                    <div class="line-container">
+                        <span class="line-title">{{'fichePaie.establishmentName' | translate}} :</span>
+                        <span class="line-content">{{user.companyName}}</span>
+                    </div>
+                    <div *ngIf="user.establishmentCommune" class="line-container" fxLayout="row"
+                        fxLayoutAlign="flex-start flex-start">
+                        <span class="line-title">{{'fichePaie.Adresse' | translate}} :</span>
+                        <span class="line-content">
+                            {{user.establishmentCommune ? getCommune(user.establishmentCommune) :
+                            'fichePaie.notMentionned' | translate}},{{user.establishmentState ?
+                            getWilaya(user.establishmentState): 'fichePaie.notMentionned' | translate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-side" *ngIf="payLine">
+                <div class="informations-container r-in-container" fxLayout="row" fxLayoutAlign="flex-start flex-start">
+                    <div class="line-container" style="width: 100% !important;">
+                        <span class="line-title">{{'fichePaie.name' | translate}} :</span>
+                        <span class="line-content">{{ user.lastName + ' ' + user.firstName }}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.birthDate">
+                        <span class="line-title">{{'fichePaie.birthDate' | translate}} :</span>
+                        <span class="line-content">{{user.birthDate ? (user.birthDate | date : "dd/MM/yyyy") :
+                            ''}}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.startDate">
+                        <span class="line-title">{{'fichePaie.startDate' | translate}} :</span>
+                        <span class="line-content">{{user.startDate ? (user.startDate | date : "dd/MM/yyyy") :
+                            ''}}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.socialSecurityNumber">
+                        <span class="line-title">{{'fichePaie.numSS' | translate}} :</span>
+                        <span class="line-content">{{user.socialSecurityNumber ? user.socialSecurityNumber : ''}}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.savedProfessionName">
+                        <span class="line-title">{{'fichePaie.poste' | translate}} :</span>
+                        <span class="line-content">{{user.savedProfessionName ? user.savedProfessionName : '' }}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.levelInstanceName">
+                        <span class="line-title">{{'fichePaie.organisme' | translate}} :</span>
+                        <span class="line-content">{{user.levelInstanceName ? user.levelInstanceName : '' }}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user.additionalLeaveDaysNumber">
+                        <span class="line-title">{{'fichePaie.leave' | translate}} :</span>
+                        <span class="line-content">{{user.additionalLeaveDaysNumber ? (user.additionalLeaveDaysNumber +
+                            ('fichePaie.days' | translate)): ''}}</span>
+                    </div>
+                    <div class="line-container" *ngIf="user && user.contractRegime && pay">
+                        <span class="line-title">{{'fichePaie.workedDays' | translate}} :</span>
+                        <span class="line-content">
+                            {{ user.contractRegime === 'DAYS' ? (pay.daysNumber + ('fichePaie.days' | translate)) :
+                            (pay.hoursNumber + ('fichePaie.hours' | translate))}}
+                        </span>
+                    </div>
+                    <div class="line-container" style="width: 100% !important;">
+                        <span class="line-title">{{'fichePaie.Adresse' | translate}} :</span>
+                        <span class="line-content">
+                            {{user.street ? user.street+', ' : ''}}
+                            {{(user.birthCommune ? getCommune(user.birthCommune )+', ': '')}}
+                            {{(user.state ? getWilaya(user.state) : '')}}
+                        </span>
+                    </div>
+                    <div class="line-container" *ngIf="user && user.bankAccountNumber">
+                        <span class="line-title">{{'fichePaie.bankAccountNum' | translate}} :</span>
+                        <span class="line-content">
+                            {{ user.bankAccountNumber }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-container">
+            <div class="tab-rows" fxLayout="column" fxLayoutAlign="flex-start">
+                <div class="header-row" fxLayout="row" fxLayoutAlign="flex-start center">
+                    <div class="row1">{{'fichePaie.code' | translate}}</div>
+                    <div class="row2">{{'fichePaie.title' | translate}}</div>
+                    <div class="row3">{{'fichePaie.nbr' | translate}}</div>
+                    <div class="row4">{{'fichePaie.base' | translate}}</div>
+                    <div class="row5">{{'fichePaie.rate' | translate}}</div>
+                    <div class="row6">{{'fichePaie.gain' | translate}}</div>
+                    <div class="row7">{{'fichePaie.deduction' | translate}}</div>
+                </div>
+
+                <div class="simple-rows" fxLayout="column" fxLayoutAlign="flex-start">
+                    <div *ngFor="let row of payLine;let i=index;" [ngClass]="{'empty-row': 
+                (i!==0 && row.order === payLine[i-1].order) ||
+                row.value===null, 'simple-row': i==0 || 
+                (i>=0 && row.order !== payLine[i-1].order) || 
+                row.order>=0}">
+                        <div *ngIf="row.order>=0 && (i==0 || row.order !== payLine[i-1].order)">
+                            <div class="inner-row" fxLayout="row" fxLayoutAlign="flex-start center">
+                                <div class="row1">{{row.payrollSectionCode}}</div>
+                                <div class="row2">
+                                    {{ (row.valueSource && row.valueSource === 'LEAVE') ?
+                                    ('CONGÉE '+ row.year) : row.customName ? row.customName :
+                                    row.payrollSectionName}}
+                                </div>
+                                <div class="row3">
+                                    {{row.number ? currencyFormat(row.number,payLine.precision) : ''}}</div>
+                                <div class="row4">
+                                    {{row.base ? currencyFormat(row.base,payLine.precision) : ''}}
+                                </div>
+                                <div class="row5">
+                                    {{row.rate ? currencyFormat(row.rate,payLine.precision) : ''}}
+                                </div>
+                                <div class="row6">{{row.gain ? currencyFormat(row.gain) : ''}}
+                                </div>
+                                <div class="row7">
+                                    {{row.deduction ? currencyFormat(row.deduction) : ''}}</div>
+                            </div>
+                            <div *ngFor="let row2 of payLine;">
+                                <div class="inner-row" *ngIf="row2.order === row.order && row2.id !== row.id"
+                                    fxLayout="row" fxLayoutAlign="flex-start center" style="margin-top: -14px;">
+                                    <div class="row1"></div>
+                                    <div class="row2"></div>
+                                    <div class="row3">
+                                        {{row2.number ? currencyFormat(row2.number,payLine.precision) : ''}}</div>
+                                    <div class="row4">
+                                        {{row2.base ? currencyFormat(row2.base,payLine.precision) : ''}}</div>
+                                    <div class="row5">
+                                        {{row2.rate ? currencyFormat(row2.rate,payLine.precision) : ''}}</div>
+                                    <div class="row6">
+                                        {{row2.gain ? currencyFormat(row2.gain) : ''}}</div>
+                                    <div class="row7">
+                                        {{row2.deduction ? currencyFormat(row2.deduction) : ''}}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="inner-row" *ngIf="row.order && row.order<0 && row.value!==null" fxLayout="row"
+                            fxLayoutAlign="space-between center">
+                            <div class="row1"></div>
+                            <div class="row2">{{'fichePaie.payrolls.'+row.name | translate}}</div>
+                            <div class="row3"></div>
+                            <div class="row4">
+                                {{ (row.name == '8' || row.name == '11') && payLine && payLine.contributorySalary ?
+                                currencyFormat(payLine.contributorySalary) : '' }}
+                                {{ row.name == '9' && payLine.taxableSalary ? currencyFormat(payLine.taxableSalary) : ''
+                                }}
+                            </div>
+                            <div class="row5">
+                                {{ row.name == '8' && row.value? '9%' : '' }}{{ row.name == '11' && row.value? '0.375%'
+                                : '' }}
+                            </div>
+                            <div class="row6"></div>
+                            <div class="row7">{{ row.value!=null ? currencyFormat(row.value): ''}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-footer" fxLayout="row nowrap" fxLayoutAlign="space-between">
+                <div class="notes-class" fxLayout="column" fxLayoutAlign="flex-start flex-start">
+                    <div class="note1" fxLayout="row"><span>*
+                        </span><span>{{'fichePaie.amountAreInDinar' | translate}}</span></div>
+                    <div class="note" fxLayout="row"> <span>* </span><span>
+                            {{'fichePaie.subText' | translate}}
+                        </span>
+                    </div>
+                </div>
+                <div class="footer-row" fxLayout="column" fxLayoutAlign="flex-start center">
+                    <div class="footer-name"> {{'fichePaie.netAmount' | translate}} </div>
+                    <div class="footer-value">
+                        {{pay && pay.net ? currencyFormat(pay.net) : 'Paie non calculé'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

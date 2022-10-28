@@ -1,0 +1,93 @@
+@import "src/@fuse/scss/fuse";
+
+
+.container1{
+    .left-content,.right-content{
+        display: flex;
+        flex-direction: column;
+
+        .contrat{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            @include media-breakpoint('sm'){
+                display: flex;
+                flex-direction: column;   
+            } 
+
+            
+
+            .first,.secand{
+                width: 50%;
+
+                @include media-breakpoint('sm'){
+                    display: flex;
+                    flex-direction: column;
+                } 
+
+                
+            }
+        }
+
+        .salaire{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .first,.secand{
+                width: 50%;
+            }
+
+            @include media-breakpoint('sm'){
+                display: flex;
+                flex-direction: column;
+            } 
+
+         
+        }
+
+        .info{
+            width: 100%;
+        //    margin: 13px;
+        }
+
+        h5{
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .first-c{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            @include media-breakpoint('sm'){
+                display: flex;
+                flex-direction: column;
+                
+            } 
+
+           @media(max-width: 800px){
+               display: flex;
+               flex-direction: column;
+           }
+        }
+    }
+    
+}
+@media screen and (max-width:599px){
+    .contrat, .salaire{
+        flex-direction: column !important;
+    }
+    .info{
+        min-width: 170px;
+    }
+}
+
+@media screen and (max-width:960px){
+    .left-content{
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+    }
+}

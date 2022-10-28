@@ -1,0 +1,38 @@
+<div *ngIf="inMobile" class="top-panel accent" [ngClass]="{'disc-open': open}">
+    <div  *ngFor="let link of topLinks" class="div-class">
+        <a *ngIf="showTopItems" [ngStyle]="{display: open ? 'flex' : 'none'}" [routerLink]="[link.path]" routerLinkActive="router-link-active"
+            class="items-top">
+            <button mat-icon-button class="items-top" (click)="closeDisc()">
+                <mat-icon>{{link.icon}}</mat-icon>
+            </button>
+            <span class="link-title-top">{{link.title}}</span>
+        </a>
+    </div>
+
+</div>
+<mat-toolbar class="footer-container" [ngStyle]="{height: inMobile ? '60px' : '45px'}">
+    <div *ngIf="!inMobile" class="link">
+        <a mat-button href="https://rh-partner.com" rel="noopener noreferrer" target="_blank"> Portail Employé
+            {{currentYear}}. Powered
+            by BP </a>
+    </div>
+
+    <div *ngIf="inMobile" class="navigator-links">
+        <div class="links" *ngFor="let link of links">
+            <a *ngIf="link.title !== 'pointage'" [routerLink]="[link.path]" routerLinkActive="router-link-active"
+                class="links-item">
+                <button mat-icon-button class="items" (click)="closeDisc()">
+                    <mat-icon>{{link.icon}}</mat-icon>
+                </button>
+                <span class="link-title">{{link.title}}</span>
+            </a>
+
+            <a *ngIf="link.title === 'pointage'">
+                <button mat-mini-fab color="accent" class="pointing-btn" (click)="openDisc()">
+                    <mat-icon>fingerprint</mat-icon>
+                </button>
+            </a>
+
+        </div>
+    </div>
+</mat-toolbar>

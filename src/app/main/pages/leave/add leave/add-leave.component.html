@@ -1,0 +1,139 @@
+<div id="profile" class="page-layout simple tabbed" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header p-24 h-100" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+    fxLayoutAlign.gt-sm="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center" style="color: white;">
+      <button mat-icon-button class="mr-16" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <div *ngIf="!editing" class="header-font-size">
+          {{'leave.addLeaveRequest'|translate}}
+
+        </div>
+        <div *ngIf="editing" class="header-font-size">
+          {{'leave.editLeaveRequest'|translate}}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab label="Informations générales">
+        <div id="about" class="p-24" fxLayout="row wrap" style="margin-bottom: 35px;">
+          <div class="about-content" fxLayout="column" fxFlex="100">
+
+            <div class="profile-box info-box general" fxLayout="column">
+              <div class="content" fxLayout="column" style="background-color: white;padding: 30px 21px;">
+                <form autocomplete="off" class="editForm" name="editForm" [formGroup]="leaveForm" novalidate>
+
+                  <div class="first_div">
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                      <mat-form-field [ngClass]="{'full-width':isMobile}" fxFlex=70 class="example-full-width"
+                        appearance="outline">
+                        <mat-label>{{'leave.startDate'|translate}}</mat-label>
+                        <input [min]="minDate" matInput [readonly]="true" [matDatepicker]="picker"
+                          [formControl]="beginDateControl" (dateChange)="dateChanged($event)">
+                        <mat-datepicker #picker>
+                        </mat-datepicker>
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-error class="mat-error"
+                          *ngIf="beginDateControl.errors && beginDateControl.errors['required']">
+                          {{'leave.requiredField'|translate}}
+                        </mat-error>
+                      </mat-form-field>
+
+                      <div fxLayout="row" [ngClass]="{'half-days':isMobile}" fxFlex.sm="100" fxFlex.xs="100"
+                        fxLayoutAlign="start center" fxLayoutGap=10px>
+
+                        <mat-slide-toggle [formControl]="halfDayBeginDateControl" (change)="toggleChanged($event)">
+                        </mat-slide-toggle>
+                        <div>
+                          <span>{{'leave.halfDay'|translate}}</span>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                      <mat-form-field [ngClass]="{'full-width':isMobile}" fxFlex=70 class="example-full-width"
+                        appearance="outline">
+                        <mat-label>{{'leave.endDate'|translate}}</mat-label>
+                        <input [min]="minDate" matInput [readonly]="true" [matDatepicker]="picker2"
+                          [formControl]="endDateControl" (dateChange)="dateChanged($event)">
+                        <mat-datepicker #picker2>
+                        </mat-datepicker>
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                        </mat-datepicker-toggle>
+                        <mat-error class="mat-error" *ngIf="endDateControl.errors && endDateControl.errors['required']">
+                          {{'leave.requiredField'|translate}}
+                        </mat-error>
+                        <mat-error class="mat-error"
+                          *ngIf="endDateControl.errors && endDateControl.errors['invalidDates']">
+                          {{'leave.invalidDate'|translate}}
+                        </mat-error>
+                        <mat-error class="mat-error"
+                          *ngIf="endDateControl.errors && endDateControl.errors['enoughRemainingDays']">
+                          {{'leave.remainnigDaysError'|translate}}
+                        </mat-error>
+                      </mat-form-field>
+
+                      <div fxLayout="row" [ngClass]="{'half-days':isMobile}" fxFlex.sm="100" fxFlex.xs="100"
+                        fxLayoutAlign="start center" fxLayoutGap=10px>
+                        <mat-slide-toggle [formControl]="halfDayEndDateControl" (change)="toggleChanged($event)">
+                        </mat-slide-toggle>
+                        <span>{{'leave.halfDay'|translate}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="second_div">
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'leave.exercisesConserned'|translate}}</mat-label>
+                        <input type="text" matInput [formControl]="exerciseControl">
+                      </mat-form-field>
+                      <div fxFlex="49" fxLayoutAlign="end center" fxLayoutGap="10px">
+                        <mat-label> {{ 'leave.noSoldeLeave' | translate }}</mat-label>
+                        <mat-slide-toggle [formControl]="leaveSoldControl" labelPosition="before">
+                        </mat-slide-toggle>
+                      </div>
+                    </div>
+                    <mat-form-field class="classInput" appearance="outline">
+                      <mat-label>{{'leave.duration'|translate}}</mat-label>
+                      <input matInput [formControl]="durationControl">
+                      <mat-error class="mat-error" *ngIf="durationControl.errors && durationControl.errors['required']">
+                        {{'leave.requiredField'|translate}}
+                      </mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+</div>
+
+<div class="bottom-container-inner">
+  <div class="bottom-buttons-container">
+    <button class="footer-button sirh-validate-btn" mat-raised-button (click)="createLeave()"
+      [class.spinnerButton]="loadingButton" [disabled]="loadingButton" [ngClass]="{'sirh-disabled-btn': loadingButton}">
+      <mat-icon class="save-button-icon">{{!loadingButton ? 'check' : null}}</mat-icon> {{'leave.validate'|translate}}
+    </button>
+    <button class="footer-button sirh-cancel-btn" mat-raised-button (click)="resetForm()">
+      <mat-icon class="cancel-button-icon">clear</mat-icon>{{'leave.cancel'|translate}}
+    </button>
+  </div>
+</div>

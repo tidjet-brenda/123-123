@@ -1,0 +1,23 @@
+<div id="point-manager" class="page-layout simple right-sidebar">
+    <div class="center" fusePerfectScrollbar>
+        <div class="header accent p-24">
+            <h1>{{ "pointing.headers.plannings" | translate }}</h1>
+        </div>
+        <div id="calendar" class="page-layout simple fullwidth">
+            <!-- CONTENT -->
+            <div class="content" fusePerfectScrollbar [@animate]="{
+                    value: '*',
+                    params: { delay: '200ms', y: '50px' }
+                }">
+                <div [ngStyle]="{opacity:noPlannings?0.3:1}">
+                    <div *ngIf="noPlannings" class="no-planning">{{ "pointing.emptyPlaning" | translate }}</div>
+                    <mwl-calendar-week-view [locale]="locale" [viewDate]="viewDate" [events]="events"
+                        [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour">
+                    </mwl-calendar-week-view>
+
+                </div>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+    </div>
+</div>

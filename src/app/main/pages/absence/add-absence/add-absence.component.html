@@ -1,0 +1,185 @@
+<div id="profile" class="page-layout simple tabbed" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header p-24 h-100" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+        fxLayoutAlign.gt-sm="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center" style="color: white;">
+            <button mat-icon-button class="mr-16" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div fxLayout="column" fxLayoutAlign="start start">
+                <div class="header-font-size" *ngIf="editing">
+                    {{'absence.editAbsenceQuery'|translate}}
+                </div>
+                <div class="header-font-size" *ngIf="!editing">
+                    {{'absence.addAbsenceQuery'|translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Informations générales">
+                <div id="about" class="p-24" fxLayout="row wrap" style="margin-bottom: 35px;">
+                    <div class="about-content" fxLayout="column" fxFlex="100">
+                        <div class="profile-box info-box general" fxLayout="column">
+                            <div class="content" fxLayout="column" style="background-color: white;padding: 30px 21px;">
+                                <form autocomplete="off" class="editForm" name="editForm" [formGroup]="formGroup"
+                                    novalidate>
+                                    <div class="first_div">
+                                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                                            <mat-form-field [ngClass]="{'full-width':isMobile}" fxFlex=60
+                                                class="classInput" appearance="outline">
+                                                <mat-label>{{'absence.beginDate'|translate}}</mat-label>
+                                                <input [min]="minDate" matInput [formControl]="createDateControl"
+                                                    [matDatepicker]="pickerCreate" (dateChange)="dateChanged()"
+                                                    [matDatepickerFilter]="myFilter"
+                                                    [readonly]="(this.absenceId && !this.editing)"
+                                                    (focus)="pickerCreate.open()">
+                                                <mat-datepicker-toggle matSuffix [for]="pickerCreate">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #pickerCreate></mat-datepicker>
+                                                <mat-error class="mat-error"
+                                                    *ngIf="createDateControl.errors && createDateControl.errors['required']">
+                                                    {{'absence.requiedField'|translate}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <div fxLayout="row" [ngClass]="{'half-days':isMobile}" fxFlex.sm="100"
+                                                fxFlex.xs="100" fxLayoutAlign="start center" fxLayoutGap=10px>
+                                                <mat-slide-toggle [formControl]="halfDayBeginDateControl"
+                                                    (change)="toggleChanged($event)">
+                                                </mat-slide-toggle>
+                                                <div>
+                                                    <span>{{'absence.halfDay'|translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                                            <mat-form-field [ngClass]="{'full-width':isMobile}" fxFlex=60
+                                                class="classInput" appearance="outline">
+                                                <mat-label>{{'absence.endDate'|translate}}</mat-label>
+                                                <input [min]="minDate" matInput [formControl]="endDateControl"
+                                                    [matDatepicker]="pickerEnd" (dateChange)="dateChanged()"
+                                                    [matDatepickerFilter]="myFilter"
+                                                    [readonly]="(this.absenceId && !this.editing)"
+                                                    (focus)="pickerEnd.open()">
+                                                <mat-datepicker-toggle matSuffix [for]="pickerEnd">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #pickerEnd></mat-datepicker>
+                                                <mat-error class="mat-error"
+                                                    *ngIf="endDateControl.errors && endDateControl.errors['required']">
+                                                    {{'absence.requiedField'|translate}}
+                                                </mat-error>
+                                                <mat-error class="mat-error"
+                                                    *ngIf="endDateControl.errors && endDateControl.errors['invalidDates']">
+                                                    {{'absence.incorrectDate'|translate}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <div fxLayout="row" [ngClass]="{'half-days':isMobile}" fxFlex.sm="100"
+                                                fxFlex.xs="100" fxLayoutAlign="start center" fxLayoutGap=10px>
+                                                <mat-slide-toggle [formControl]="halfDayEndDateControl"
+                                                    (change)="toggleChanged($event)">
+                                                </mat-slide-toggle>
+                                                <div>
+                                                    <span>{{'absence.halfDay'|translate}} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <mat-form-field class="classInput" appearance="outline">
+                                            <mat-label>{{'absence.duration'|translate}}</mat-label>
+                                            <input matInput [formControl]="durationControl"
+                                                [readonly]="(this.absenceId && !this.editing)">
+
+                                            <mat-error class="mat-error"
+                                                *ngIf="durationControl.errors && durationControl.errors['required']">
+                                                {{'absence.requiedField'|translate}}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="second_div">
+                                        <mat-form-field style="margin-top: 5px;" class="classInput"
+                                            appearance="outline">
+                                            <mat-label>{{'absence.absenceReason'|translate}} </mat-label>
+                                            <mat-select [formControl]="reasonControl"
+                                                [disabled]="(this.absenceId && !this.editing)">
+                                                <mat-option *ngFor="let reason of reasons" [value]="reason">
+                                                    {{ 'absence.' + reason | translate}}</mat-option>
+                                            </mat-select>
+                                            <mat-error class="mat-error"
+                                                *ngIf="reasonControl.errors && reasonControl.errors['required']">
+                                                {{'absence.requiedField'|translate}}
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field class="classInput" appearance="outline"
+                                            *ngIf="reasonControl.value === 'OTHER'">
+                                            <mat-label>{{'absence.OtherReason'|translate}}</mat-label>
+                                            <textarea matInput [formControl]="otherReasonControl"
+                                                [readonly]="(this.absenceId && !this.editing)"></textarea>
+                                            <mat-error class="mat-error"
+                                                *ngIf="otherReasonControl.errors && otherReasonControl.errors['required']">
+                                                {{'absence.requiedField'|translate}}
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <div class="input-space" fxLayout="column" fxLayoutAlign="start start">
+                                            <mat-slide-toggle [formControl]="accountedControl"
+                                                [disabled]="(this.absenceId && !this.editing)">
+                                                {{'absence.calculateLeave'|translate}}</mat-slide-toggle>
+                                        </div>
+
+                                        <div class="justify" fxLayout="row" fxLayoutAlign="space-between start"
+                                            fxLayoutGap="20px" style="margin-top: 4px;">
+                                            <mat-slide-toggle (change)="toogleChange($event)"
+                                                [formControl]="justifiedControl">{{'absence.justified'|translate}}
+                                            </mat-slide-toggle>
+                                            <div *ngIf="fileName">
+                                                <label for="justificationButton">{{fileName}}</label>
+                                                <mat-icon
+                                                    style="cursor: pointer; font-size: 15px;position: absolute; margin-top: 2px;"
+                                                    (click)="clearFileName($event)">close</mat-icon>
+                                            </div>
+                                            <div>
+                                                <button style="margin: auto;" id="justificationButton"
+                                                    *ngIf="justifiedControl.value"
+                                                    (click)="file.click();$event.preventDefault()" mat-button
+                                                    [disabled]="(this.absenceId && !this.editing)"
+                                                    class="accent add-btn"> <span>{{'absence.proof'|translate}}</span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <input hidden type="file" id="file"
+                                                    accept=".pdf, .doc, .docx, .txt, .png, .jpeg, .jpg, .svg" #file
+                                                    (change)="onFileChange($event)">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <!-- / CONTENT -->
+</div>
+<div class="bottom-container-inner">
+    <div class="bottom-buttons-container">
+        <button mat-raised-button (click)="createAbsence()" [class.spinnerButton]="loadingButton"
+            [disabled]="loadingButton" class="sirh-validate-btn" [ngClass]="{'sirh-disabled-btn': loadingButton}">
+            <mat-icon class="icon-button">{{!loadingButton ? 'check' : null}}</mat-icon>
+            {{'absence.validate'|translate}}
+        </button>
+        <button class="footer-button sirh-cancel-btn" mat-raised-button (click)="resetForm()">
+            <mat-icon class="icon-button">clear</mat-icon> {{'absence.cancel'|translate}}
+        </button>
+    </div>
+</div>

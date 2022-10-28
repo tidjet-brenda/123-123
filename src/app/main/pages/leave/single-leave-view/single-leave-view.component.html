@@ -1,0 +1,100 @@
+<div id="profile" class="page-layout simple tabbed" fusePerfectScrollbar *ngIf="leave">
+    <!-- HEADER -->
+    <div style="min-height: 70px !important;" class="header p-24" fxLayout="column" fxLayout.gt-sm="row"
+        fxLayoutAlign.gt-sm="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center" style="color: white;">
+            <button style="margin-right: 10px !important;" mat-icon-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Informations générales">
+                <div id="about" class="p-24" fxLayout="row wrap" style="margin-bottom: 35px;">
+                    <div class="about-content" fxLayout="column" fxFlex="100">
+
+                        <div class="profile-box info-box general" fxLayout="column"
+                            style="background-color: white;padding: 14px 5px;">
+                            <div class="content" *ngIf="leave">
+                                <div class="first_div">
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.startDate'|translate}}
+                                        </div>
+                                        <div class="info">{{ leave.beginDate | date :'d/M/yyyy'}} <span
+                                                *ngIf="leave.halfDayInBeginDate">({{'leave.halfDay'|translate}})</span></div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.endDate'|translate}}
+                                        </div>
+                                        <div class="info">{{ leave.endDate | date :'d/M/yyyy'}} <span
+                                                *ngIf="leave.hhalfDayInEndDate">({{'leave.halfDay'|translate}})</span></div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.duration'|translate}}
+                                        </div>
+                                        <div class="info">{{leave.duration}}</div>
+                                    </div>
+
+                                </div>
+                                <div class="second_div">
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.exercisesConserned'|translate}} 
+                                        </div>
+                                        <div class="info">{{concernedExercise }}</div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.queryStatus'|translate}}
+                                        </div>
+                                        <div class="info">{{'leave.' + leave.status|translate}}</div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title">
+                                            {{'leave.readWithoutPay'|translate}}
+                                        </div>
+                                        <div class="info">{{readWithoutPay}}</div>
+                                    </div>
+                                    <div class="info-line">
+                                        <div class="title" *ngIf="leave.status === 'Refusée'">
+                                            {{'leave.refusalReason'|translate}}
+                                        </div>
+                                        <div class="info">{{ leave.refusalReason}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <!-- / CONTENT -->
+</div>
+<div class="bottom-container-inner" *ngIf="leave">
+    <div class="bottom-buttons-container">
+        <button *ngIf="leave.status === 'Acceptée'" class="footer-button sirh-cancel-btn" mat-raised-button
+            (click)="deleteLeave(false)">
+            <mat-icon class="icon-button">close</mat-icon>   {{'leave.editLeaveRequest'|translate}}Annuler
+        </button>
+        <button *ngIf="leave.status === 'En Attente'" class="footer-button sirh-edit-btn" mat-raised-button
+            (click)="updateLeave()">
+            <mat-icon class="icon-button">edit</mat-icon>   {{'leave.editLeaveRequest'|translate}}Modifier
+        </button>
+        <button *ngIf="leave.status === 'En Attente'" class="footer-button sirh-delete-btn" mat-raised-button
+            (click)="deleteLeave(true)">
+            <mat-icon class="icon-button">delete</mat-icon>   {{'leave.editLeaveRequest'|translate}}Supprimer
+        </button>
+    </div>
+</div>

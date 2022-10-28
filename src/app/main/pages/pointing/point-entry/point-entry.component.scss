@@ -1,0 +1,198 @@
+@import "src/@fuse/scss/fuse";
+.center {
+    .header {
+        height: 100px !important;
+    }
+}
+
+.scanner {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: red;
+    animation: moveLine infinite;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    -moz-animation: moveLine infinite;
+    -moz-animation-duration: 3s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-direction: alternate;
+    -webkit-animation: moveLine infinite;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-direction: alternate;
+    -o-animation: moveLine infinite;
+    -o-animation-duration: 3s;
+    -o-animation-timing-function: linear;
+    -o-animation-direction: alternate;
+}
+.loader {
+    height: calc(100vh - 228px);
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+}
+
+
+.spinner {
+    background-image: url("/assets/images/loader/loader.png");
+    width: 130px;
+    height: 130px;
+    background-size: 100%;
+    background-position: center;
+    margin: 0.9em;
+    animation-name: spin;
+    animation-duration: 1500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes moveLine {
+    from {
+        top: 120px;
+    }
+    to {
+        top: calc(100vh - 100px);
+    }
+}
+.border {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 140px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.border2 {
+    background-image: url("../../../../../assets/images/backgrounds/border2.png");
+}
+
+.border3 {
+    background-image: url("../../../../../assets/images/backgrounds/border3.png");
+}
+
+.notMobile,
+.noQrCodeDetected,
+.successScan,
+.scanError,
+.noLocalisation {
+    width: 100%;
+    height: calc(100vh - 235px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 19px 10px;
+    border-bottom: 1px solid #0000001f;
+    background-color: white;
+    .message {
+        width: 100%;
+        background-color: white;
+        max-height: 310px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        padding: 19px 10px;
+        .assignment-icon {
+            font-size: 80px;
+            width: 80px;
+            color: #c4c4c4;
+            height: 80px;
+        }
+        .text {
+            color: #8e8e8e;
+            max-width: 240px;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+    }
+}
+
+.successScan {
+    mat-icon,
+    .text {
+        color: green !important;
+    }
+}
+.scanError,
+.noLocalisation {
+    mat-icon,
+    .text {
+        color: red !important;
+    }
+}
+@media all and (max-width: 500px) {
+    .header {
+        text-align: center;
+    }
+}
+.results {
+    display: flex;
+    flex-direction: column;
+}
+video {
+    height: calc(100vh - 221px) !important;
+}
+
+.success-scan-position{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-sentence{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.successScan-redirection{
+    color: white;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 500;
+    padding-top: 12px;
+}

@@ -1,0 +1,267 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+html,
+body {
+    height: 100%;
+    font-family: "Muli", "Cairo", "Helvetica Neue", "Arial", sans-serif;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "simple-keyboard/build/css/index.css";
+.owl-dt-inline-container,
+.owl-dt-popup-container {
+    font-size: 14px;
+}
+button:focus {
+    outline: unset !important;
+}
+.h-100 {
+    height: 100px !important;
+    min-height: 100px !important;
+    max-height: 100px !important;
+    font-weight: 600 !important;
+    color: white;
+}
+.header-font-size {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+}
+.mat-hint {
+    width: 100%;
+    text-align: right;
+}
+.mat-error {
+    width: 100%;
+    text-align: right;
+}
+.error-snackbar {
+    color: #f5f5f5 !important;
+    background-color: #dd5859 !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    .mat-snack-bar-container {
+        color: #f5f5f5 !important;
+        background-color: #dd5859 !important;
+    }
+    .divButtonError,
+    .mat-button {
+        background-color: #c44f50 !important;
+        color: #ffffff !important;
+        border: solid 1px white !important;
+        border-radius: 5px !important;
+        padding: 3px 10px !important;
+        cursor: pointer !important;
+        font-size: 10px !important;
+        margin-right: 20px !important;
+        line-height: 15px !important;
+    }
+    .mat-simple-snackbar {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .divButtonWaiting {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .divButtonSuccess {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+.success-message-snackbar {
+    color: #f5f5f5 !important;
+    background-color: #7bbd44 !important;
+    //background-color: #8ed455 !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    .mat-snack-bar-container {
+        color: #f5f5f5 !important;
+        // background-color: #8ed455 !important;
+        background-color: #7bbd44 !important;
+    }
+    .divButtonSuccess,
+    .mat-button {
+        //  background-color: #85c253 !important;
+        background-color: #7bbd44 !important;
+        color: #ffffff !important;
+        border: solid 1px white !important;
+        border-radius: 5px !important;
+        padding: 3px 10px !important;
+        cursor: pointer !important;
+        font-size: 10px !important;
+        margin-right: 20px !important;
+        line-height: 15px !important;
+    }
+    .mat-simple-snackbar {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .divButtonError {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .divButtonWaiting {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+.info-message-snackbar {
+    color: #f5f5f5 !important;
+    background-color: #039be5 !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    .mat-snack-bar-container {
+        color: #f5f5f5 !important;
+        background-color: #039be5 !important;
+    }
+    .divButtonSuccess,
+    .mat-button {
+        background-color: #039be5 !important;
+        color: #ffffff !important;
+        border: solid 1px white !important;
+        border-radius: 5px !important;
+        padding: 3px 10px !important;
+        cursor: pointer !important;
+        font-size: 10px !important;
+        margin-right: 20px !important;
+        line-height: 15px !important;
+    }
+    .mat-simple-snackbar {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .divButtonError {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .divButtonWaiting {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+::ng-deep .mat-snack-bar-handset {
+    width: auto !important;
+}
+.mat-simple-snackbar {
+    font-size: 12px !important ;
+}
+.mat-snack-bar-container {
+    max-width: 100vw !important;
+    min-width: 0 !important;
+}
+.mat-form-field-hint-spacer {
+    flex: 0 !important;
+}
+.mat-form-field-subscript-wrapper {
+    padding: 0 4px !important;
+    margin-top: 3px !important;
+}
+.mat-form-field-appearance-outline {
+    .mat-form-field-infix {
+        width: auto !important;
+    }
+}
+::ng-deep.ng-select .ng-select-container {
+    overflow: unset !important;
+}
+::ng-deep.ng-select .ng-select-container.ng-appearance-outline {
+    overflow: unset !important;
+}
+
+.mat-form-field,
+.mat-radio-button,
+.mat-checkbox {
+    font-size: 14px;
+}
+
+.sirh-validate-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-add-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-edit-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-delete-btn {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+
+.sirh-cancel-btn {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+
+.sirh-activate-btn {
+    background-color: #43a046 !important;
+    color: white !important;
+}
+
+.sirh-suspend-btn {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+
+.sirh-import-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-export-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-print-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-calcul-btn {
+    background-color: #039be5 !important;
+    color: white !important;
+}
+
+.sirh-action-dark-btn {
+    background-color: #3c4252 !important;
+    color: white !important;
+}
+
+.sirh-disabled-btn {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    color: rgba(0, 0, 0, 0.26) !important;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
+    cursor: not-allowed !important;
+}

@@ -1,0 +1,73 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+    .card {
+        height: auto !important;
+    }
+    .field-content {
+        overflow-wrap: break-word;
+    }
+}
+
+.container1 {
+    .left-content,
+    .right-content {
+        display: flex;
+        flex-direction: row;
+
+        @include media-breakpoint("xs") {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        @include media-breakpoint("sm") {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .info {
+            width: 100%;
+            //    margin: 13px;
+
+            h5 {
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
+.first-div {
+    width: 50%;
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint("sm") {
+        width: 100%;
+    }
+}
+.secand-div {
+    width: 50%;
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint("sm") {
+        width: 100%;
+    }
+}
+.secand-div-2 {
+    width: 50%;
+    @include media-breakpoint("xs") {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    @include media-breakpoint("sm") {
+        margin-top: 20px;
+        width: 100%;
+    }
+}

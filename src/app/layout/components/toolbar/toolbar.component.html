@@ -1,0 +1,137 @@
+<mat-toolbar class="p-0 mat-elevation-z1" style="height: 55px;">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="end center">
+
+
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="navbar-toggle-button" *ngIf="!hiddenNavbar && !rightNavbar"
+                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+
+            <div class="toolbar-separator" *ngIf="!hiddenNavbar && !rightNavbar" fxHide.gt-md></div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
+                <div class="logo ml-16">
+                    <img class="logo-icon" src="../../../../assets/images/logos/Calque 2.png"
+                        alt="Logo PORTAIL-EMPLOYE">
+                </div>
+            </div>
+            <div class="px-8 px-md-16">
+                <app-bread-crumb [user]="user"></app-bread-crumb>
+            </div>
+
+        </div>
+
+
+        <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+
+            <button mat-button [matMenuTriggerFor]="userMenu" class="user-button" *ngIf="user">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <img class="avatar mr-0 mr-sm-16"
+                        [src]="user.attachmentId ? getProfileUrl(user.attachmentId):(user.civility === 'MR' ? '../../../../assets/images/avatars/profile.jpg':'../../../../assets/images/avatars/women.jpg')"
+                        alt="Ma photo de profile" style="object-fit: cover;">
+                    <span class="username mr-12" fxHide fxShow.gt-xs>{{ fullName}}</span>
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+
+
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+
+                <button mat-menu-item (click)="profile()">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Mon profil</span>
+                </button>
+                <button mat-menu-item class="" (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Se déconnecter</span>
+                </button>
+
+            </mat-menu>
+
+            <div class="toolbar-separator"></div>
+
+            <button aria-haspopup="true" class="alert-button mat-menu-trigger mat-button mat-button-base" mat-button=""
+                [matMenuTriggerFor]="notificationsMenu" #notificationsMenuTrigger="matMenuTrigger"><span
+                    class="mat-button-wrapper">
+                    <!----><span fxlayout="row" fxlayoutalign="center center"
+                        style="margin-left: -4px; margin-top: 4px; flex-direction: row; box-sizing: border-box; display: flex; place-content: center; align-items: center;"
+                        class="ng-star-inserted" aria-describedby="cdk-describedby-message-2" cdk-describedby-host="">
+                        <mat-icon class="nIcon mat-icon notranslate mat-icon-no-color" role="img" svgicon="blackNotif"
+                            aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="black" width="100%"
+                                height="100%" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+                                <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none"
+                                    stroke="none"></rect>
+                                <g class="currentLayer">
+                                    <title>Layer 1</title>
+                                    <path
+                                        d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+                                        id="svg_1" class="" fill-opacity="1" fill="#626262"></path>
+                                </g>
+                            </svg></mat-icon>
+                        <div *ngIf="notificationsList.length !==0 " class="nDot"></div>
+                    </span>
+                    <!---->
+                    <!---->
+                </span>
+                <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
+            </button>
+            <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" class="mat-menu2">
+                <div *ngIf="notificationsList && notificationsList.length===0" class="no-new-notifications"
+                    fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon class="emptyIcon">drafts</mat-icon>
+                    <span class="emptyText">Aucune nouvelle notification </span>
+                </div>
+                <div *ngIf="notificationsList && notificationsList.length>0" class="notifications-menu"
+                    fxLayout="column" fxLayoutAlign="flex-start">
+                    <div class="single-notification-nr" *ngFor="let notif of notificationsList;let i = index;"
+                        [ngClass]="{'readed': notif.received }" fxLayout="row" fxLayoutAlign="space-between center"
+                        (click)="$event.stopPropagation();">
+                        <div class="notif-content" fxLayout="row" fxLayoutAlign="flex-start flex-start">
+                            <mat-icon class="preIcon">{{notif.icon}}</mat-icon>
+                            <div class="notText" fxLayout="column" fxLayoutAlign="flex-start flex-start">
+                                <div class="content-not-style">
+                                    {{notif.title}}
+                                </div>
+                                <div class="date-style" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div *ngIf="!notif"></div>
+                                    <div *ngIf="notif" class="details-style" fxLayout="row"
+                                        (click)="leaveRedirection(notif);notificationsMenuTrigger.closeMenu()"
+                                        fxLayoutAlign="center center">
+                                        <mat-icon>arrow_right
+                                        </mat-icon>
+                                        <span>
+                                            Plus de détails</span>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <mat-icon>today</mat-icon>
+                                        <span> {{notif.creationDate | date : "dd/MM/yyyy" }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notif-actions">
+                            <button [disabled]="notif.received" (click)="markAsRead(notif.id)" mat-flat-button>
+                                <mat-icon *ngIf="!notif.received">mark_email_unread</mat-icon>
+                                <mat-icon *ngIf="notif.received">drafts</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button *ngIf="notificationsList.length>0" [disabled]="nrNotifications.length===0"
+                    (click)="markAsRead()" mat-button class="notifications-action-bar" fxLayout="row"
+                    fxLayoutAlign="center center" (click)="$event.stopPropagation();">
+                    <mat-icon>drafts</mat-icon> Tout marquer comme lu
+                </button>
+            </mat-menu>
+
+        </div>
+
+    </div>
+
+</mat-toolbar>

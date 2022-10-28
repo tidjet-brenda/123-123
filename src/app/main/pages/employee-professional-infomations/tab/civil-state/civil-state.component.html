@@ -1,0 +1,214 @@
+<div class="p-24">
+    <!-- top side-->
+    <div class="top-side-form" fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="25px">
+        <!-- left top card -->
+        <div class="card left-top-card" fxLayout="column" fxFlex="50" fxFlex.lt-md="100">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.employeeInfos'|translate}}</div>
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.employeeCode'| translate}}</h5>
+                    {{ user.code? user.code:'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.civility'| translate}} </h5>
+                    {{ user.civility ? user.civility :'employeeProfessionalInfomations.notMentionned'| translate }}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.lastname'| translate}} </h5>
+                    {{ user.lastName ? (user.lastName | uppercase):'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.lastnameAR'| translate}}</h5>
+                    {{ user.arabicLastName? user.arabicLastName: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.firstName'| translate}}</h5>
+                    {{ user.firstName ? (user.firstName | titlecase):'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.firstNameAR'| translate}}</h5>
+                    {{ user.arabicFirstName? user.arabicFirstName: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.birthDate'| translate}}</h5>
+                    {{ user.birthDate }}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.jugement'| translate}} </h5>
+                    {{ user.judgmentBirthDate? user.judgmentBirthDate: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div *ngIf="user.birthState  && user.birthCommune" fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.birthPlace'| translate}}</h5>
+                    <span *ngIf="!user.birthState && !user.birthCommune">
+                        {{'employeeProfessionalInfomations.notMentionned'| translate}}
+                    </span>
+                    {{ user.birthState ? getWilaya(user.birthState) +',' :'' }}
+                    {{ user.birthCommune? getCommune(user.birthCommune): ''}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.address'| translate}} </h5>
+                    <span
+                        *ngIf="!user.street && !user.commune && !user.state">{{'employeeProfessionalInfomations.notMentionned'|
+                        translate}}</span>
+                    {{ user.street? user.street+' ,': ''}}
+                    {{ user.commune ? getCommune(user.commune)+' ,' :'' }}
+                    {{ user.state ? getWilaya(user.state) :'' }}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.addressAR'| translate}} </h5>
+                    <span
+                        *ngIf="!user.street && !user.commune && !user.state">{{'employeeProfessionalInfomations.notMentionned'|
+                        translate}}</span>
+                    {{ user.streetArabicName? user.streetArabicName+' ,': ''}}
+                    {{ user.commune ? getCommuneArabic(user.commune)+' ,' :'' }}
+                    {{ user.state ? getWilayaArabic(user.state) :'' }}
+                </div>
+            </div>
+            <div fxLayout="row" *ngIf="user.maidenName">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.maidenName'| translate}}</h5>
+                    {{ user.maidenName }}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.bloodGroup'| translate}} </h5>
+                    {{ user.bloodGroup? getBloodGroup(user.bloodGroup):'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+        </div>
+        <!-- right top card -->
+        <div class="card right-top-card" fxLayout="column" fxFlex="50" fxFlex.lt-md="100">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.coordinates'|translate}}</div>
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.socialSecurityNumber'| translate}}</h5>
+                    {{ user.socialSecurityNumber? user.socialSecurityNumber:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.nationalIdCardNumber'| translate}}</h5>
+                    {{ user.nationalIdCardNumber? user.nationalIdCardNumber:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.nationalIdCardNumber'| translate}}</h5>
+                    {{ user.nationalIdCardDeliveryState? getWilaya(user.nationalIdCardDeliveryState):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.drivingLicenceNumber'| translate}}</h5>
+                    {{ user.drivingLicenceNumber? user.drivingLicenceNumber:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.phoneNumber'| translate}}</h5>
+                    {{ user.phoneNumber? formatPhoneNumber(user.phoneNumber):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.nationalIdCardDeliveryDate'| translate}}</h5>
+                    {{ user.nationalIdCardDeliveryDate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.nationalIdCardDeliveryCommune'| translate}}</h5>
+                    {{ user.nationalIdCardDeliveryCommune? getCommune(user.nationalIdCardDeliveryCommune) :
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.drivingLicenceDeliveryDate'| translate}}</h5>
+                    {{ user.drivingLicenceDeliveryDate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.email'| translate}}</h5>
+                    <div class="field-content">{{ user.email? user.email: 'employeeProfessionalInfomations.notMentionned'|
+                        translate}}</div>
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.passportNumber'| translate}}</h5>
+                    {{ user.passportNumber? user.passportNumber: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.passportDeliveryState'| translate}}</h5>
+
+                    {{ user.passportDeliveryState? getWilaya(user.passportDeliveryState):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.drivingLicenceDeliveryCommune'| translate}}</h5>
+                    {{ user.drivingLicenceDeliveryCommune? getCommune(user.drivingLicenceDeliveryCommune):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.linkedinUrl'| translate}}</h5>
+                    <div class="field-content">{{ user.linkedinUrl? user.linkedinUrl: 'employeeProfessionalInfomations.notMentionned'|
+                        translate}}</div>
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.passportDeliveryDate'| translate}}</h5>
+                    {{ user.passportDeliveryDate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.passportDeliveryCommune'| translate}}</h5>
+                    {{ user.passportDeliveryCommune? getCommune(user.passportDeliveryCommune):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.drivingLicenceDeliveryState'| translate}}</h5>
+                    {{ user.drivingLicenceDeliveryState? getWilaya(user.drivingLicenceDeliveryState):
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

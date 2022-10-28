@@ -1,0 +1,89 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+    <div class="content">
+        <ngx-datatable class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="45" [footerHeight]="56"
+            [rowHeight]="'auto'" [scrollbarH]="false" [reorderable]="reorderable" [selectionType]="'single'"
+            [limit]="pageCount" [count]="totalItems" [offset]="pageIndex" [externalSorting]="externalSorting"
+            [externalPaging]="externalPaging" (select)="onSelect($event)" [messages]="messages"
+            (sort)="sortEmiter($event)" (page)="pageEmiter($event)">
+
+            <ngx-datatable-column *ngFor="let column of columns;"
+                name="{{'dataTable.columns.' + column.name | translate}}" prop="{{column.prop}}"
+                [minWidth]="column.minWidth ? column.minWidth:'auto'" [cellTemplate]="columnTemplate"
+                [headerTemplate]="(column.prop === 'status' && statusStatus) ? headerTemplate : null"
+                [sortable]="column.sortable !== undefined?column.sortable:true" [resizeable]="false">
+                <ng-template #columnTemplate let-row="row">
+                    <div *ngIf="column.prop === 'status'">
+                        <mat-icon *ngIf="row.status === 'ACCEPTED'" class="active-icon green-600 s-22"
+                            style="border-radius: 15px;" matTooltip="Demande acceptée">
+                            check</mat-icon>
+                        <mat-icon *ngIf="row.status === 'WAITING'" class="active-icon yellow-600 s-22"
+                            style="border-radius: 15px;" matTooltip="Demande en attente">
+                            sync_problem</mat-icon>
+                        <mat-icon *ngIf="row.status === 'TO_CANCEL'" class="active-icon orange-600 s-22"
+                            style="border-radius: 15px;" matTooltip="Demande à annuler">
+                            close</mat-icon>
+                        <mat-icon *ngIf="row.status === 'Inactif' || row.status === 'DENIED'"
+                            class="active-icon red-600 s-22" style="border-radius: 15px;" matTooltip="Demande refusée">
+                            close</mat-icon>
+                    </div>
+                    <div *ngIf="column.prop !== 'status'">{{row[column.prop]}}</div>
+                </ng-template>
+                <ng-template #headerTemplate let-row="row">
+                    <button [disableRipple]="true" mat-button [matMenuTriggerFor]="menu"
+                        style="padding: 0px !important; font-size: 15px; font-weight: bold;">{{'dataTable.columns.' + column.name | translate}}
+                        <mat-icon class="filter-drop-down-icon" style="margin-left: 10px !important;
+                vertical-align: baseline;" svgIcon="filterDropdown"></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" yPosition="above">
+                        <div style="width: 100%;" *ngFor="let item of column.items, let i = index;"
+                            style="display: flex;flex-direction: row;justify-content: flex-start;padding-left: 10px;height: 30px;">
+                            <mat-checkbox [checked]="select === i" style="width: 100%;"
+                                (change)="onFilterSingleStatus($event.checked,select=i)" [value]="i"
+                                (click)="$event.stopPropagation()">
+                                {{item}}
+                            </mat-checkbox>
+                        </div>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column *ngIf="actions" [draggable]="false" [resizeable]="false" name="Actions"
+                [cellTemplate]="temp" [sortable]="false" [canAutoResize]="true" [resizeable]="false">
+                <ng-template #temp let-row="row">
+                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                        (click)="$event.preventDefault(); $event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <div *ngFor="let action of actions, let i = index;">
+                            <button *ngIf="row.status && (action.label === 'view')" mat-menu-item
+                                (click)="ActionOnTable(action.label, row, i)">
+                                <div>
+                                    <mat-icon>{{action.icon}}</mat-icon>
+                                    <span>{{'dataTable.actions.' + action.label | translate}}</span>
+                                </div>
+                            </button>
+                            <button
+                                *ngIf="row.status === 'WAITING' && (action.label === 'delete'||action.label === 'edit')"
+                                mat-menu-item (click)="ActionOnTable(action.label, row, i)">
+                                <div>
+                                    <mat-icon>{{action.icon}}</mat-icon>
+                                    <span>{{'dataTable.actions.' + action.label | translate}}</span>
+                                </div>
+                            </button>
+
+                            <button *ngIf="row.status === 'ACCEPTED' && action.label === 'cancel'" mat-menu-item
+                                (click)="ActionOnTable(action.label, row, i)">
+                                <div>
+                                    <mat-icon>{{action.icon}}</mat-icon>
+                                    <span>{{'dataTable.actions.' + action.label | translate}}</span>
+                                </div>
+                            </button>
+                        </div>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+        </ngx-datatable>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+@import "src/@fuse/scss/fuse";
+:host {
+    ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+}
+.center {
+    overflow: hidden;
+
+    .header {
+        .left-side {
+            font-size: 25px;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between !important;
+            flex-wrap: wrap;
+            align-content: space-between;
+            width: 100%;
+            @include media-breakpoint("xs") {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between !important;
+            }
+            .date {
+                margin: 10px;
+                font-size: 30px;
+                font-weight: bolder;
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+::ng-deep .pointing-select-month .mat-datepicker-toggle button {
+    color: rgb(255, 255, 255);
+}
+::ng-deep .pointing-select-month .mat-form-field-outline-thick,
+::ng-deep .mat-form-field-outline {
+    color: rgb(255, 255, 255);
+}
+/* Font color */
+::ng-deep .pointing-select-month input.mat-input-element {
+    color: white;
+}
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+    padding: 0.5em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+    top: -1.5em;
+}
+
+::ng-deep
+    .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label {
+    transform: translateY(-1.1em) scale(0.75);
+    width: 133.33333%;
+}
+#file-manager {
+    .center {
+        overflow: hidden;
+
+        .header {
+            position: relative;
+            overflow: visible;
+            @include media-breakpoint("lt-md") {
+                height: 120px;
+            }
+        }
+    }
+}
+
+app-printable-file {
+    display: none;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+}
+
+@media print {
+    app-printable-file {
+        display: block !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    #file-manager {
+        display: none !important;
+    }
+}
+.button-container {
+    display: flex;
+    flex-direction: row;
+
+    .button1 {
+        margin-right: 5px;
+    }
+    mat-icon {
+        margin: 8px;
+    }
+}
+.first-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    position: relative;
+    top: -8px;
+    cursor: pointer;
+}
+@media all and (min-width: 641px) {
+    .header {
+        min-height: 90px !important;
+    }
+}
+@media all and (min-width: 646px) {
+    .header {
+        height: 80px !important;
+    }
+}
+
+@media all and (max-width: 640px) {
+    .first-div {
+        display: flex;
+        flex-direction: column;
+    }
+    .header {
+        min-height: unset !important;
+    }
+}
+@media all and (min-width: 1014px) {
+    .first-div {
+        width: 60% !important;
+    }
+}
+@media all and (max-width: 440px) {
+    .pointing-select-month {
+        width: 150px !important;
+    }
+    .date {
+        font-size: 20px !important;
+    }
+}

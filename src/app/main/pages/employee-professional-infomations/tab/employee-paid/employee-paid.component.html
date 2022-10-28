@@ -1,0 +1,211 @@
+<div class="p-24" fxLayout="column" fxLayoutGap="25px">
+    <!-- top side-->
+    <div class="top-side-form" fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutGap.lt-md="25px">
+        <!-- left top card -->
+        <div class="card left-top-card" fxLayout="column" fxFlex="50" fxFlex.lt-md="100">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.employeeAssignment'|translate}}
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.status'| translate}}</h5>
+                    {{ user.status? user.status: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.exitDate'| translate}}</h5>
+                    {{ user.exitDate? user.exitDate: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.experienceYearsNumber'| translate}}</h5>
+                    {{ user.experienceYearsNumber? user.experienceYearsNumber:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.savedProfessionName'| translate}}</h5>
+                    {{ user.savedProfessionName? user.savedProfessionName:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.startDate'| translate}}</h5>
+                    {{ user.startDate? user.startDate: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.exitReasonName'| translate}}</h5>
+                    {{ user.exitReasonName? user.exitReasonName: 'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.levelInstanceName'| translate}}</h5>
+                    {{ user.levelInstanceName ? user.levelInstanceName :
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.establishmentName'| translate}}</h5>
+                    {{ user.establishmentName ? user.establishmentName
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div *ngIf="user.establishmentState" fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.establishmentState'| translate}}</h5>
+                    {{ user.establishmentState ? getWilaya(user.establishmentState) :
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.diplomaes'| translate}}</h5>
+                    {{ user.diplomaes.length > 0 ? user.allDiplomaes:
+                    'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.rankName'| translate}}</h5>
+                    {{ user.rankName ? user.rankName : 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div *ngIf="user.establishmentCommune" fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.establishmentCommune'| translate}}</h5>
+                    {{ user.establishmentCommune ? getCommune(user.establishmentCommune)
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+        </div>
+        <!-- right top card -->
+        <div class="card right-top-card" fxLayout="column" fxFlex="50" fxFlex.lt-md="100" style="height: auto;">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.payroll'|translate}}</div>
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.paymentTerm'| translate}}</h5>
+                    {{ user.paymentTerm? user.paymentTerm: 'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.bankAccountNumber'| translate}}</h5>
+                    {{ user.bankAccountNumber ? user.bankAccountNumber :'employeeProfessionalInfomations.notMentionned'|
+                    translate}}
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.authorizeCumulativeLeave'| translate}}</h5>
+                    {{ user.authorizeCumulativeLeave !== null ? user.authorizeCumulativeLeave ? 'Oui' : 'Non'
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.hasAdditionalLeaveForSouth'| translate}}</h5>
+                    {{ user.hasAdditionalLeaveForSouth !== null ? user.hasAdditionalLeaveForSouth ? 'Oui' : 'Non'
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.amount'| translate}}</h5>
+                    {{ user.amount +' Da'}}
+                </div>
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.withDisabilities'| translate}}</h5>
+                    {{user.withDisabilities !== null ? user.withDisabilities ? 'Oui' : 'Non'
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxFlex="50" *ngIf="user.hasAdditionalLeaveForSouth">
+                    <h5>{{'employeeProfessionalInfomations.additionalLeaveDaysNumber'| translate}}</h5>
+                    {{ user.additionalLeaveDaysNumber ? user.additionalLeaveDaysNumber
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+
+                <div fxFlex="50">
+                    <h5>{{'employeeProfessionalInfomations.affectedByBadWeather'| translate}}</h5>
+                    {{ user.affectedByBadWeather !== null ? user.affectedByBadWeather ? 'Oui' : 'Non'
+                    :'employeeProfessionalInfomations.notMentionned'| translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bottom side -->
+    <div class="bottom-side-form">
+        <!-- first bottom card -->
+        <div class="card first-bottom-card">
+            <div class="form-card-title">{{'employeeProfessionalInfomations.cards.contract'|translate}}</div>
+            <div fxLayout="row" fxLayoutGap="54px" fxLayout.lt-md="column" fxLayoutGap="0px">
+                <div fxLayout="column" fxFlex="50">
+                    <div fxLayout="row">
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.contractType'| translate}}</h5>
+                            {{ user.contractType? user.contractType: 'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.contractRegime'| translate}}</h5>
+                            {{ user.contractRegime? user.contractRegime:
+                            'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+                    </div>
+
+                    <div fxLayout="row">
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.contractBeginDate'| translate}}</h5>
+                            {{ user.contractBeginDate? user.contractBeginDate:
+                            'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.contractEndDate'| translate}}</h5>
+                            {{ user.contractEndDate? user.contractEndDate:
+                            'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="50">
+                    <div fxLayout="row">
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.inTrialPeriod'| translate}}</h5>
+                            {{ (user.inTrialPeriod? 'employeeProfessionalInfomations.yes':
+                            'employeeProfessionalInfomations.no')| translate}}
+                        </div>
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.trialPeriodEndDate'| translate}}</h5>
+                            {{ user.trialPeriodEndDate? user.trialPeriodEndDate:
+                            'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+                    </div>
+                    <div fxLayout="row">
+                        <div fxFlex="50">
+                            <h5>{{'employeeProfessionalInfomations.workPlan'| translate}}</h5>
+                            {{ user.workPlan? user.workPlan: 'employeeProfessionalInfomations.notMentionned'|
+                            translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

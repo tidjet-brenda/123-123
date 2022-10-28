@@ -1,0 +1,13 @@
+<div class="popup-container">
+
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-icon fxFlex="25" style="color:#ff9a00bd; font-size: 50px; margin-bottom: 20px;">warning</mat-icon>
+    <p fxFlex="75">
+      {{ msg }}
+    </p>
+  </div>
+  <div class="button-div">
+    <button mat-button *ngFor="let option of options"
+      (click)="action(option.value)">{{option.text}}</button>
+  </div>
+</div>

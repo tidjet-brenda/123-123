@@ -1,0 +1,43 @@
+<div class="employee-professional-infomations" *ngIf="user" fusePerfectScrollbar>
+    <div class="head">
+        <div class="sub-head">
+            <div class="profil-img">
+                <img [src]="user.attachmentId ? getProfileUrl(user.attachmentId): (user.civility === 'M' ? 
+                '../../../../assets/images/avatars/profile.jpg' :  '../../../../assets/images/avatars/women.jpg')"
+                    [alt]="'employeeProfessionalInfomations.myPicture'| translate"
+                    style="width: 80px; height: 80px; object-fit: cover;">
+            </div>
+            <div class="fullName">
+                {{ user.lastName | uppercase }} {{ user.firstName | titlecase }}
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <mat-tab-group>
+            <div class="container1">
+                <mat-tab [label]="'employeeProfessionalInfomations.civilState'| translate">
+                    <ng-template matTabContent>
+                        <app-civil-state [user]="user"></app-civil-state>
+                    </ng-template>
+                </mat-tab>
+            </div>
+
+            <div class="container1">
+                <mat-tab [label]="'employeeProfessionalInfomations.familyInfos'| translate">
+                    <ng-template matTabContent>
+                        <app-spouce-cordonates [user]="user"></app-spouce-cordonates>
+                    </ng-template>
+                </mat-tab>
+            </div>
+
+            <div class="container1">
+                <mat-tab [label]="'employeeProfessionalInfomations.contractPaie'| translate">
+                    <ng-template matTabContent>
+                        <app-employee-paid [user]="user"></app-employee-paid>
+                    </ng-template>
+                </mat-tab>
+            </div>
+        </mat-tab-group>
+    </div>
+</div>

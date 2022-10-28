@@ -1,0 +1,89 @@
+.add-btn {
+    padding: 5px 45px;
+}
+
+.footerTab {
+    padding: 20px;
+}
+
+.close-btn {
+    color: #dd5859;
+    padding-right: 5px;
+    width: 25px !important;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.fields-container {
+    padding: 17px 18px;
+    margin-bottom: -19px;
+    mat-form-field {
+        width: 49%;
+        color: #878787;
+    }
+}
+.footer-button {
+    padding: 1px 10px !important;
+    margin-right: 5px;
+}
+.add-button-icon {
+    font-size: 20px;
+}
+.btn-disabled {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    color: rgba(0, 0, 0, 0.26) !important;
+}
+
+::ng-deep .mat-datepicker-toggle button {
+    color: rgb(0, 0, 0);
+}
+::ng-deep .mat-form-field-outline-thick,
+::ng-deep .mat-form-field-outline {
+    color: rgb(0, 0, 0);
+}
+/* Font color */
+::ng-deep input.mat-input-element {
+    color: rgb(0, 0, 0);
+}
+#about {
+    overflow-y: auto;
+}
+.custom-date-leave {
+    position: relative;
+    bottom: 0px;
+}
+
+::ng-deep .custom-date-leave .mat-form-field-flex>.mat-form-field-infix {
+    padding: 0.31em 0px !important;
+}
+::ng-deep .custom-date-leave .mat-form-field-flex>.mat-form-field-infix > button{
+    position: relative;
+    bottom: 3px;
+}
+::ng-deep .mat-form-field-label-wrapper {
+    top: -1.5em;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+::ng-deep input.mat-input-element, ::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{
+    position: relative;
+    bottom: 4px;
+}
+::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{
+    position: relative;
+    bottom: 2px;
+}
+
+::ng-deep.mat-form-field-hide-placeholder .mat-form-field-label{
+    position: absolute;
+    top: 32px;
+}
+::ng-deep.mat-form-field.mat-form-field-type-mat-select .mat-form-field-infix .mat-select-trigger{
+    position: relative;
+    bottom: 4px;
+}

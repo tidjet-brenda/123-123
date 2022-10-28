@@ -1,0 +1,81 @@
+<div id="file-manager" class="page-layout simple right-sidebar inner-scroll">
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+
+        <!-- HEADER -->
+        <div class="header accent p-24" fxLayout="column" fxLayoutAlign="space-between start">
+            <div style="margin-top: -25px !important;" class="toolbar w-100-p" fxLayout="row"
+                fxLayoutAlign="space-between start">
+
+                <div class="left-side" fxLayout="row" fxLayoutAlign="center center">
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100-p">
+                        <div class="icon" *ngIf="isMobile">
+                            <button mat-mini-fab class="sirh-print-btn"
+                                [disabled]="payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null"
+                                [ngClass]="{'sirh-disabled-btn':payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null}"
+                                (click)="printFile()">
+                                <mat-icon>print</mat-icon>
+                            </button>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="center center">
+                            <mat-form-field appearance="outline" class="pointing-select-month">
+                                <mat-label> {{'fichePaie.yearsMonths' | translate}}</mat-label>
+                                <input matInput [max]="maxDate" [matDatepicker]="dp" [formControl]="date">
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                                    (monthSelected)="chosenMonthHandler($event,dp)" panelClass="example-month-picker">
+                                </mat-datepicker>
+                            </mat-form-field>
+                            <div class="date" *ngIf="isMobile">
+                                {{'fichePaie.pay' | translate}} {{month}} {{ year }}
+                            </div>
+                        </div>
+                        <div class="date" *ngIf="!isMobile">
+                            {{'fichePaie.pay' | translate}} {{month}} {{ year }}
+                        </div>
+                        <div class="button-container" *ngIf="!isMobile">
+                            <div class="button1">
+                                <button mat-raised-button class="sirh-print-btn" (click)="printFile()"
+                                    [disabled]="payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null"
+                                    [ngClass]="{'sirh-disabled-btn':payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null}">
+                                    <mat-icon>print</mat-icon>{{'fichePaie.print' | translate}}
+                                </button>
+                            </div>
+                            <div class="button">
+                                <button mat-raised-button class="sirh-export-btn" (click)="downloadPayFile()"
+                                    [disabled]="payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null"
+                                    [ngClass]="{'sirh-disabled-btn': payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null}">
+                                    <mat-icon>get_app</mat-icon>{{'fichePaie.download' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="icon" *ngIf="isMobile">
+                            <button mat-mini-fab class="sirh-export-btn"
+                                [disabled]="payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null"
+                                [ngClass]="{'sirh-disabled-btn':payInfoEMployee.length === 0 || payInfoEMployee.employeePayLines === null}"
+                                (click)="downloadPayFile()">
+                                <mat-icon>get_app</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content">
+            <app-employee-pay *ngIf="payInfoEMployee" [payInfoEMployee]="payInfoEMployee" [payLines]="linesToShow"
+                [month]="month" [year]="year" [user]="user"></app-employee-pay>
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>
+
+<app-printable-file [startDate]="startDate" [lastDate]="lastDate" [selectedMonth]="month" [payLine]="linesToShow"
+    [pay]="payInfoEMployee" [user]="user">
+</app-printable-file>

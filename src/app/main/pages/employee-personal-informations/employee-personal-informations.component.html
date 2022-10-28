@@ -1,0 +1,269 @@
+<div *ngIf="user" id="profile" class="page-layout blank" fxLayout="column">
+
+    <div class="head">
+        <div class="sub-head">
+            <div class="profil-img">
+                <img [src]="user.attachmentId ? getProfileUrl(user.attachmentId): (user.civility === 'MR' ? 
+                '../../../../assets/images/avatars/profile.jpg' :  '../../../../assets/images/avatars/women.jpg')"
+                    alt="Ma photo de profil" style="width: 80px; height: 80px; object-fit: cover;">
+            </div>
+            <div class="fullName">
+                {{ user.lastName | uppercase }} {{ user.firstName | titlecase }}
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="user && resetPassword" class="content p-24" fxLayout="column" fxLayoutAlign="space-between"
+        fxLayout.gt-xs="row">
+        <div class="card-1">
+            <div class="card-title">
+                {{'infosPerso.titleCard1'|translate}}
+            </div>
+            <div style="display: flex;">
+                <div class="first-div">
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.name' | translate}}</mat-label>
+                        <input matInput [formControl]="lastNameControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.firstName' | translate}}</mat-label>
+                        <input matInput [formControl]="firstNameControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.Profession' | translate}}</mat-label>
+                        <input matInput [formControl]="professionControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.tel' | translate}}</mat-label>
+                        <input matInput [formControl]="phoneControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.email' | translate}}</mat-label>
+                        <input matInput [formControl]="emailControl">
+                    </mat-form-field>
+                </div>
+                <div class="second-div">
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.company' | translate}}</mat-label>
+                        <input matInput [formControl]="enterpriseConrol">
+                    </mat-form-field>
+
+                    <mat-form-field class="classInput" appearance="outline">
+                        <mat-label>{{'infosPerso.address' | translate}}</mat-label>
+                        <input matInput [formControl]="enterpriseAdressControl">
+                    </mat-form-field>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-2">
+            <div class="card-title">
+                {{'infosPerso.titleCard2'|translate}}
+            </div>
+            <div style="display: flex;">
+                <div class="first-div" style="width: 100%;" fxLayout="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'infosPerso.actuelPassWord' | translate}}</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" (input)="onNewPass()"
+                            [formControl]="currentPasswordControl" autocomplete="off">
+                        <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+
+                        <mat-hint class="mat-error" *ngIf="
+                                     (currentPasswordControl.dirty ||
+                                     currentPasswordControl.touched) &&
+                                     currentPasswordControl.errors &&
+                                     currentPasswordControl.errors['required']
+                                       "> {{'infosPerso.requiredFeild' | translate}}</mat-hint>
+
+                        <mat-hint class="mat-error" *ngIf="(currentPasswordControl.dirty ||
+                                             currentPasswordControl.touched) &&
+                                             currentPasswordControl.errors &&
+                                             currentPasswordControl.errors['minlength']">
+                            {{'infosPerso.pswCondition' | translate}}
+                        </mat-hint>
+
+
+                        <mat-hint class="mat-error" *ngIf="((currentPasswordControl.dirty ||
+                                      currentPasswordControl.touched) &&
+                                      currentPasswordControl.errors &&
+                                      currentPasswordControl.errors['pattern']) && !((currentPasswordControl.dirty ||
+                                      currentPasswordControl.touched) &&
+                                      currentPasswordControl.errors &&
+                                      currentPasswordControl.errors['minlength'])">
+                            {{'infosPerso.pswPatern' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'infosPerso.newPassWord' | translate}}</mat-label>
+                        <input matInput type="password" [formControl]="newPasswordConrol"
+                            (input)="onNewPass(); onConfirmPass()" autocomplete="off">
+                        <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+
+                        <mat-hint class="mat-error" *ngIf="
+                                        (newPasswordConrol.dirty ||
+                                         newPasswordConrol.touched) &&
+                                         newPasswordConrol.errors &&
+                                         newPasswordConrol.errors['required']">
+                            {{'infosPerso.requiredFeild' | translate}}
+                        </mat-hint>
+
+                        <mat-hint class="mat-error" *ngIf="(newPasswordConrol.dirty ||
+                        newPasswordConrol.touched) &&
+                        newPasswordConrol.errors &&
+                        newPasswordConrol.errors['minlength']">
+                            {{'infosPerso.pswCondition' | translate}}
+                        </mat-hint>
+
+                        <mat-hint class="mat-error" *ngIf="((newPasswordConrol.dirty ||
+                        newPasswordConrol.touched) &&
+                        newPasswordConrol.errors &&
+                        newPasswordConrol.errors['pattern']) && !((newPasswordConrol.dirty ||
+                        newPasswordConrol.touched) &&
+                        newPasswordConrol.errors &&
+                        newPasswordConrol.errors['minlength'])">
+                            {{'infosPerso.pswPatern' | translate}}
+                        </mat-hint>
+
+                        <mat-hint class="mat-error" *ngIf="
+                                  (newPasswordConrol.dirty ||
+                                  newPasswordConrol.touched) &&
+                                   noMatch &&
+                                   !required
+                            ">
+                            {{'infosPerso.pwdDifferent' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'infosPerso.name' | translate}}</mat-label>
+                        <input matInput type="password" (input)="onConfirmPass()"
+                            [formControl]="newPasswordConfirmConrol" autocomplete="off">
+                        <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+
+                        <mat-hint class="mat-error" *ngIf="
+                                    (newPasswordConfirmConrol.dirty ||
+                                    newPasswordConfirmConrol.touched) &&
+                                    newPasswordConfirmConrol.errors &&
+                                    newPasswordConfirmConrol.errors[
+                                        'required']">
+                            {{'infosPerso.requiredFeild' | translate}}
+                        </mat-hint>
+                        <mat-hint class="mat-error" *ngIf="
+                                    (newPasswordConfirmConrol.dirty ||
+                                    newPasswordConfirmConrol.touched) &&
+                                    newPasswordConfirmConrol.errors &&
+                                    newPasswordConfirmConrol.errors[
+                                        'minlength']">
+                            {{'infosPerso.pswCondition' | translate}}
+                        </mat-hint>
+                        <mat-hint class="mat-error" *ngIf="
+                                       (newPasswordConfirmConrol.dirty ||
+                                       newPasswordConfirmConrol.touched) &&
+                                         misMatch &&
+                                       !newPasswordConfirmConrol.errors">
+                            {{'infosPerso.identiqueNewPassWords' | translate}}
+                        </mat-hint>
+
+
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="user && !resetPassword" class="content p-24" fxLayout="column" fxLayoutAlign="space-between"
+        fxLayout.gt-xs="row">
+        <div class="card-1">
+            <div class="card-title">
+                {{'infosPerso.titleCard1'|translate}}
+            </div>
+            <div style="display: flex;">
+                <div class="first-div" fxLayout="column">
+                    <div class="info-line">
+                        <div class="title"> {{'infosPerso.name' | translate}}</div>
+                        <div class="info">{{ user.lastName ? user.lastName : ('infosPerso.notMentionned' | translate)}}
+                        </div>
+                    </div>
+
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.firstName' | translate}}</div>
+                        <div class="info">{{ user.firstName ? user.firstName : ('infosPerso.notMentionned' |
+                            translate)}}</div>
+                    </div>
+
+
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.Profession' | translate}}</div>
+                        <div class="info">{{ user.savedProfessionName ? user.savedProfessionName
+                            :('infosPerso.notMentionned' | translate)}}</div>
+                    </div>
+
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.tel' | translate}}</div>
+                        <div class="info">{{ user.phoneNumber ? formatPhoneNumber(user.phoneNumber) :
+                            ('infosPerso.notMentionned' | translate)}}</div>
+                    </div>
+
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.email' | translate}}</div>
+                        <div class="info">{{ user.email ? user.email : ('infosPerso.notMentionned' | translate)}}</div>
+                    </div>
+                </div>
+                <div class="second-div">
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.company' | translate}}</div>
+                        <div class="info">{{ user.companyName ? user.companyName : ('infosPerso.notMentionned' |
+                            translate) }}</div>
+                    </div>
+
+                    <div *ngIf="user.birthCommune &&  user.birthState " class="info-line">
+                        <div class="title">{{'infosPerso.address' | translate}}</div>
+                        <div class="info">{{ user.birthCommune ? getCommune(user.birthCommune)+',' : '' }}
+                            {{ user.birthState ? getWilaya(user.birthState) : ''}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-2">
+            <div class="card-title">
+                {{'infosPerso.titleCard2'|translate}}
+            </div>
+            <div style="display: flex;">
+                <div class="first-div" style="width: 100%;" fxLayout="column">
+                    <div class="info-line">
+                        <div class="title">{{'infosPerso.mdp'|translate}}</div>
+                        <div class="info">******</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="bottom-container-inner-basic">
+        <div class="bottom-buttons-container-basic">
+
+            <button *ngIf="!resetPassword" class="footer-button sirh-validate-btn" (click)="changeToEdit()"
+                mat-raised-button>
+                <mat-icon class="icon-button">edit</mat-icon>{{'infosPerso.editbtn' | translate}}
+            </button>
+
+            <button *ngIf="resetPassword" class="footer-button sirh-validate-btn" (click)="changePassword()"
+                mat-raised-button>
+                <mat-icon class="icon-button">check</mat-icon>{{'infosPerso.validatebtn' | translate}}
+            </button>
+
+            <button *ngIf="resetPassword" class="footer-button sirh-cancel-btn" (click)="resetForm()" mat-raised-button>
+                <mat-icon class="icon-button">close</mat-icon>{{'infosPerso.cancelbtn' | translate}}
+            </button>
+
+        </div>
+    </div>

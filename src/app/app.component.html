@@ -1,0 +1,5 @@
+<div class="app-container">
+    <router-outlet></router-outlet>
+    <ng-http-loader [entryComponent]="LoaderComponent"  [opacity]=".9" [minDuration]="100"
+        [filteredUrlPatterns]="loaderExceptions"></ng-http-loader>
+</div>

@@ -1,0 +1,72 @@
+<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+
+    <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+        <home-page></home-page>
+    </div>
+
+    <div id="login-form-wrapper" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+        <div id="login-form">
+
+            <div class="logo" fxHide.gt-xs>
+                <img src="../../../../assets/images/logos/Calque 1.png" alt="Logo PORTAIL-EMPLOYE">
+            </div>
+
+            <div class="title">{{'authentification.connect'|translate}}</div>
+
+            <form name="loginForm" [formGroup]="form" novalidate autocomplete="off">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.adress'|translate}}</mat-label>
+                    <input matInput formControlName="email" (input)="emailTrimer()">
+                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                    <mat-error *ngIf="emailControl.hasError('required')">
+                        {{'authentification.required'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="!emailControl.hasError('required') &&
+                               emailControl.hasError('pattern')">
+                        {{'authentification.emailNoVliade'|translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'authentification.pwd'|translate}}</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordControl.hasError('required')">
+                        {{'authentification.required'|translate}}
+                    </mat-error>
+
+                    <mat-error *ngIf="!passwordControl.hasError('required') && passwordControl.hasError('minlength')">
+                        {{'authentification.pwdLength'|translate}} 
+                    </mat-error>
+                </mat-form-field>
+                <mat-error class="mat-error" *ngIf="index === 2">
+                    {{'authentification.remain'|translate}} {{index}} {{'authentification.attempts'|translate}} 
+                </mat-error>
+                <mat-error class="mat-error" *ngIf="index === 1">
+                    {{'authentification.remain'|translate}} {{index}} {{'authentification.attempt'|translate}}
+                </mat-error>
+
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+                    fxLayoutAlign="space-between center">
+                    <mat-checkbox class="remember-me" aria-label="Remember Me" (change)="changeRememberMe($event)">
+                        {{'authentification.rememberMe'|translate}}
+                    </mat-checkbox>
+
+                    <a class="forgot-password" [routerLink]="['/forgot-password']" [state]="{'email':form.controls.email.value}">
+                        {{'authentification.forgotPsw'|translate}}
+                    </a>
+                </div>
+
+                <button mat-raised-button class="submit-button sirh-validate-btn" aria-label="LOGIN"
+                    [disabled]="form.invalid" [ngClass]="{'sirh-disabled-btn': form.invalid}"
+                    (click)="executeAction('login',$event)">
+                    {{'authentification.getConnect'|translate}}
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div *ngIf="payLine" class="header">
+    <div class="title-container">
+        <div class="title mb-8">{{ (payLine.valueSource && payLine.valueSource === 'LEAVE') ?
+            ('CONGÉE '+ payLine.year) : payLine.customName ? payLine.customName :
+            payLine.payrollSectionName}}
+            <span *ngIf="payLine.payrollSectionCode">({{ payLine.payrollSectionCode}})</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="payLine" class="content p-24">
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+
+        <div *ngIf="payLine" class="file-details" [@animate]="{value:'*',params:{delay:'200ms'}}">
+            <div class="line">
+                <hr>
+            </div>
+            <div class="content-details">
+                <div *ngIf="payLine.number" class="details">
+                    <div> {{'fichePaie.nbr' | translate}}</div>
+                    <div>{{payLine.number}}</div>
+                </div>
+                <div *ngIf="payLine.base" class="details">
+                    <div> {{'fichePaie.base' | translate}}</div>
+                    <div> {{payLine.base}}</div>
+                </div>
+                <div *ngIf="payLine.rate" class="details">
+                    <div> {{'fichePaie.rate' | translate}}</div>
+                    <div> {{payLine.rate}}</div>
+                </div>
+                <div *ngIf="payLine.gain" class="details">
+                    <div> {{'fichePaie.gain' | translate}}</div>
+                    <div>{{payLine.gain ? payLine.gain : ''}}</div>
+                </div>
+                <div *ngIf="payLine.deduction" class="details">
+                    <div> {{'fichePaie.deduction' | translate}}</div>
+                    <div>{{payLine.deduction ? payLine.deduction : ''}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

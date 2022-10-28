@@ -1,0 +1,108 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+
+    .theme-options-button {
+        position: absolute;
+        top: 160px;
+        right: 0;
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0;
+        margin: 0;
+        pointer-events: auto;
+        opacity: 0.9;
+        z-index: 998;
+
+        &.right-side-panel {
+            @include media-breakpoint("gt-md") {
+                right: 70px;
+            }
+        }
+
+        &.side-panel-hidden {
+            right: 0 !important;
+        }
+
+        mat-icon {
+            animation: rotating 3s linear infinite;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .theme-options-sidebar {
+        width: 360px;
+        min-width: 360px;
+        max-width: 360px;
+    }
+
+    // resize mat-form-filds
+
+    ::ng-deep .mat-form-field-flex>.mat-form-field-infix {
+        padding: 0.6em 0px !important;
+    }
+
+    ::ng-deep .mat-form-field-label-wrapper {
+        top: -1.5em;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        transform: translateY(-1.1em) scale(0.75);
+        width: 133.33333%;
+    }
+
+    ::ng-deep input.mat-input-element,
+    ::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon {
+        position: relative;
+        bottom: auto;
+        height: 19px;
+    }
+
+    ::ng-deep.mat-form-field-hide-placeholder .mat-form-field-label {
+        position: absolute;
+        top: 32px;
+    }
+
+    ::ng-deep.mat-form-field.mat-form-field-type-mat-select .mat-form-field-infix .mat-select-trigger {
+        position: relative;
+        bottom: 4px;
+    }
+
+    @keyframes spinnerButton {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    ::ng-deep.spinnerButton:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 22%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        border-top-color: #000000;
+        animation: spinnerButton 0.8s linear infinite;
+    }
+}
+
+.app-container {
+    width: 100%;
+}

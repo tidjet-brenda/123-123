@@ -1,0 +1,39 @@
+
+<button *ngIf="isMobile" mat-icon-button class="mr-16" (click)="close()">
+    <mat-icon>arrow_forward</mat-icon>
+</button>
+<div class="content p-24" fusePerfectScrollbar>
+    <div *ngIf="selected" class="file-details" [@animate]="{value:'*',params:{delay:'200ms'}}">
+        <div *ngIf="selected && selected.pointings.length > 0" class="subtitle secondary-text ">
+            <mat-icon class="top-icon">today</mat-icon>
+            <span> {{selected.day}} </span>
+        </div>
+
+        <div *ngIf="selected.pointings.length > 0" class="inter-exit">
+            <div class="interligne">
+                <div class="title">
+                    {{'sideBar.entries'|translate}}
+                </div>
+                <div class="title">
+                    {{'sideBar.exits'|translate}}
+                </div>
+            </div>
+            <div class="interligne" *ngFor="let item of selected.pointings">
+                <div>
+                    {{item.entrance}}
+                </div>
+                <div>
+                    {{item.exit}}
+                </div>
+            </div>
+        </div>
+        <div class="empty-table" *ngIf="selected.pointings.length === 0">
+            <div class="empty-table-message">
+                <mat-icon class="assignment-icon">assignment</mat-icon>
+                <div class="note-div">{{'sideBar.noEntriesExits'|translate}} {{ selected.day}}</div>
+                <div class="note-div">{{'sideBar.selectAnotherDay'|translate}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->
